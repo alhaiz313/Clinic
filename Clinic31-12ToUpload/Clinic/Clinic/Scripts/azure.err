@@ -1,0 +1,13 @@
+Wed Nov 20 2013 13:43:30 GMT+0300 (Jordan Standard Time):
+[Error: Unable to read script from file ./table/device.insert.js]
+Error: Unable to read script from file ./table/device.insert.js
+    at __$__16 (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:2897:28)
+    at __tryCatch (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\node_modules\streamline\lib\callbacks\runtime.js:141:4)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:2894:110)
+    at __tryCatch (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\node_modules\streamline\lib\callbacks\runtime.js:144:5)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:2888:141)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:2894:81)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:2897:150)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\node_modules\streamline\lib\callbacks\runtime.js:85:13)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\lib\commands\mobile.js:50:16)
+    at ___ (C:\Program Files (x86)\Microsoft SDKs\Windows Azure\CLI\node_modules\streamline\lib\callbacks\runtime.js:85:13)

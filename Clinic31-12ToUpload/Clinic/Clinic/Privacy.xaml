@@ -1,0 +1,40 @@
+﻿<SettingsFlyout
+    x:Class="Clinic.Privacy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Clinic"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="Privacy"
+    d:DesignWidth="346">
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!-- The StackPanel(s) below define individual content sections -->
+
+        <!-- Content Section 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- Section 1 header -->
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Privacy Statement" />
+
+            <!-- Section 1 body -->
+            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,25" TextWrapping="Wrap" FontSize="10">
+            	<Run Text="The Clinic system software uses Live SDK to collect information about the logged-in user. "/>
+            	<LineBreak/>
+            	<Run Text="Once the app starts it takes the users permission to"/>
+            	<Run Text=" log in using his Microsoft account and"/>
+            	<Run Text=" access his name, gender and display picture to be used to identify him in the app for other users. "/>
+            	<LineBreak/>
+            	<Run Text="Furthermore, it access his contacts and friends list just to update the list to include the users who are using the Clinic System as well so that the use doesn't have to add his colleagues emails manually to his outlook account. However, the user's contacts and friends lists will not be exposed to other users. The clinic system will sign the user in automatically and then it fetches the users outlook event so that it helps him to organize his schedule, however these events are not exposed to anyone else. The users basic data ( like first name, last name and email address without the contacts and the events) will be saved on the clinic Windows Azure account."/>
+            </TextBlock>
+
+        </StackPanel>
+
+        <!-- Define more Content Sections below as necessary -->
+
+    </StackPanel>
+</SettingsFlyout>

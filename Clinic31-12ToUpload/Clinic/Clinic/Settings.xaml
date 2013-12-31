@@ -1,0 +1,59 @@
+﻿<common:LayoutAwarePage
+    x:Class="Clinic.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Clinic"
+    xmlns:common="using:Clinic.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Viewbox >
+        <Grid Background="LightGray" Style="{StaticResource LayoutRootStyle}" x:Name="myGrid"
+          Width="1366"
+          Height="768">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,2,0,616" Grid.RowSpan="2"
+         >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+                <Image Source="Assets/settings-icon.png" Margin="26,69,1168,30" Grid.Column="1" />
+
+                <TextBlock Foreground="Black"  x:Name="pageTitle" Text="Settings" Style="{StaticResource PageHeaderTextStyle}" Margin="112,0,165,42" Grid.Column="1"/>
+                <!--<Image x:Name="myImage" Source="Assets/Folders-OS-User-No-Frame-Metro-icon.png"   Grid.Column="1" Margin="944,24,264,0"/>-->
+                <Image x:Name="myImage"  Grid.Column="1" Margin="944,70,264,20"/>
+
+                <!--<TextBlock  x:Name="logIn"  Text="{Binding logIn2}" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,64,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>-->
+                <TextBlock  x:Name="logIn" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>
+
+                <!-- </StackPanel>-->
+            </Grid>
+            <!--<Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                --><!--<Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>--><!--
+                <TextBlock FontFamily="New Times Roman" FontSize="30" Text="Azure Account Settings"  Foreground="#2D2D2D" Margin="50,20,20,20"/>
+                <TextBlock FontSize="20" Foreground="#2D2D2D" Grid.Row="1" Text="Azure URL" Margin="50,30,0,0"/>
+                <TextBox x:Name="AzureUrl" FontSize="15" Foreground="#2D2D2D" Grid.Row="1" Margin="200,30,0,0" Width="600" HorizontalAlignment="Left" Grid.Column="1" IsReadOnly="True"/>
+                <TextBlock FontSize="20" Foreground="#2D2D2D" Grid.Row="2" Text="Azure Key" Margin="50,30,0,0"/>
+                <PasswordBox x:Name="AzureKey" FontSize="15" Foreground="#2D2D2D" Grid.Row="2" Margin="200,30,0,0" Width="600" HorizontalAlignment="Left" Grid.Column="1" IsEnabled="False"/>
+
+            </Grid>-->
+        </Grid>
+        </Viewbox>
+</common:LayoutAwarePage>

@@ -1,0 +1,600 @@
+﻿<common:LayoutAwarePage
+    x:Class="Clinic.MainPage3"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Clinic"
+    xmlns:common="using:Clinic.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource LayoutRootStyle}" x:Name="myGrid">
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="*"/>-->
+
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}" Grid.ColumnSpan="2" Margin="120,0,277,40"/>
+            <TextBlock x:Name="logIn"  Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="996,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="52" Width="242"/>
+
+        </Grid>
+
+        <Grid  Width="700" Height="50" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Weekly"  Height="50" HorizontalAlignment="Center" Grid.Column="0" Click="Button_Click">
+                
+            </Button>
+            <Button Content="Monthly" Height="50" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click_1">
+
+            </Button>
+        </Grid>
+        <Grid x:Name="Output" Width="880" Height="560" Background="LightBlue" Margin="0,0,0,0" Grid.Row="2"
+       Visibility="{Binding ShowMonthlyCalendar}"
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                >
+        
+                    
+                    <!--<TextBlock  FontSize="15" Foreground="Black"  Grid.Row="0" Text="Patient Calendar"   />-->
+
+
+            <Grid Width="880" 
+                    
+                 >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <!--<TextBlock Grid.Row="0" Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient History Calendar" FontWeight="Light" Foreground="Black" />-->
+                <!--<StackPanel FlowDirection="LeftToRight">-->
+                <Button Grid.Row="1" Content="&lt;" x:Name="previousMonthButton" Click="previousMonthButton_Click" Foreground="Gray"/>
+                <TextBlock Grid.Row="1" x:Name="MonthNameTextBlock" Text="{Binding SelectedMonth, Mode=TwoWay}"  FontSize="20" Width="100" Margin="92,7,648,7" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" x:Name="YearNameTextBlock" Text="{Binding SelectedYear, Mode=TwoWay}"  FontSize="20" Width="100" Margin="250,7,0,7" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button Grid.Row="1" Content=">" Margin="790,0,0,0" x:Name="nextMonthButton" Click="nextMonthButton_Click" Foreground="Gray"/>
+                <!--</StackPanel>-->
+                <Grid Grid.Row="2" Width="880">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+                        <ColumnDefinition Width="125.7"/>
+
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Sunday"  FontSize="15" Foreground="Gray" HorizontalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Text="Monday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="Tuesday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="Wednesday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="Thursday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" Text="Friday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="6" Text="Saturday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                </Grid>
+                <GridView Grid.Row="3"
+                         x:Name="MonthGridView"
+                           IsItemClickEnabled="True" Margin="0,0,0,-306"
+                                  
+                          ItemClick="MonthGridView_ItemClick"
+                          Background="LightBlue"
+                         
+                             >
+                    <GridView.Resources>
+                        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+                            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="TabNavigation" Value="Local"/>
+                            <Setter Property="IsHoldingEnabled" Value="True"/>
+                            <Setter Property="Margin" Value="0,0,2,2"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GridViewItem">
+                                        <GridViewItemPresenter x:Name="gridViewItemPresenter" 
+                                    		CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
+                                    		CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
+                                    		ContentMargin="0" 
+                                    		ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                    		CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                    		DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                    		DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                    		DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                    		DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                    		FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" 
+                                    		HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    		Padding="0,0,0,0" 
+                                    		PointerOverBackgroundMargin="1" 
+                                    		PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                                    		PointerOverBackground="Gray"
+                                    		ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                    		SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}" 
+                                    		SelectionCheckMarkVisualEnabled="True" 
+                                    		SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                    		SelectedPointerOverBackground="Gray" 
+                                    		SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                    		SelectedBackground="Gray" 
+                                    		VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    		
+                                    	</GridViewItemPresenter>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GridView.Resources>
+
+                    <GridView.ItemContainerStyle>
+                        <StaticResource ResourceKey="GridViewItemStyle1"/>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+
+                            <!--<StackPanel Orientation="Horizontal" />-->
+                            <WrapGrid Orientation="Horizontal"/>
+
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <!--<Border BorderBrush="Gray" BorderThickness="1" >-->
+                            <Grid 
+                             
+                                Grid.Row="2" Height="60" Width="123.4" Background="{Binding Color}">
+
+                                <!--<TextBlock Text="{Binding Name}" VerticalAlignment="Top"/>-->
+                                <TextBlock Text="{Binding Value}" VerticalAlignment="Top" Foreground="Gray"/>
+                                <TextBlock Text="{Binding Info}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" FontSize="10"/>
+                                <!--<TextBlock Text="History Info Avalable" VerticalAlignment="Center" Foreground="Gray" FontSize="10"/>-->
+                            </Grid>
+
+                            <!--</Border>-->
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+
+                </GridView>
+                <Popup x:Name="LightDismissAnimatedPopup" IsLightDismissEnabled="True"  >
+                    <Popup.ChildTransitions>
+                        <TransitionCollection>
+                            <PopupThemeTransition />
+                        </TransitionCollection>
+                    </Popup.ChildTransitions>
+                    <Border BorderBrush="Gray" BorderThickness="2" Background="White" Width="200" Height="200">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="LightDismissAnimatedPopupTextBlock" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                            <TextBlock x:Name="LightDismissAnimatedPopupTextBlock3" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                            <TextBlock x:Name="LightDismissAnimatedPopupTextBlock4" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                            <TextBlock x:Name="LightDismissAnimatedPopupTextBlock5" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+
+                            <TextBlock x:Name="LightDismissAnimatedPopupTextBlock2" FontSize="10" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+
+                            <!--<Button Content="Close" Click="CloseAnimatedPopupClicked" Background="Gray" HorizontalAlignment="Center" />-->
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+            
+            
+            
+            
+            
+            
+        </Grid>
+
+
+
+
+        <Grid x:Name="Output2" Width="880" Background="LightBlue" Margin="0,0,0,0" Grid.Row="2"
+       Visibility="{Binding ShowWeeklyCalendar}">
+              
+                
+
+            <!--ScrollViewer.VerticalScrollBarVisibility="Visible"
+               ScrollViewer.HorizontalScrollBarVisibility="Visible"-->
+            <!--<TextBlock  FontSize="15" Foreground="Black"  Grid.Row="0" Text="Patient Calendar"   />-->
+
+
+            <Grid Width="880" 
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <!--<TextBlock Grid.Row="0" Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient History Calendar" FontWeight="Light" Foreground="Black" />-->
+                <!--<StackPanel FlowDirection="LeftToRight">-->
+                <Button Grid.Row="1" Content="&lt;" x:Name="previousMonthButton2" Click="previousMonthButton2_Click" Foreground="Gray"/>
+                <TextBlock Grid.Row="1" x:Name="MonthNameTextBlock2" Text="{Binding LeftMonth, Mode=TwoWay}"  FontSize="20" Width="100" Margin="92,7,648,7" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" x:Name="YearNameTextBlock2" Text="{Binding LeftYear, Mode=TwoWay}"  FontSize="20" Width="100" Margin="225,7,0,7" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" x:Name="MonthNameTextBlock3" Text="{Binding RightMonth, Mode=TwoWay}" FontSize="20" Width="100" Foreground="Gray" VerticalAlignment="Center" />
+                <!--<TextBlock Grid.Row="1" x:Name="MonthNameTextBlock3" Text="{Binding RightMonth, Mode=TwoWay}"  FontSize="20" Width="100" Margin="400,7,648,7" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
+                <TextBlock Grid.Row="1" x:Name="YearNameTextBlock3" Text="{Binding RightYear, Mode=TwoWay}"  FontSize="20" Width="100" Margin="495,7,0,7" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+
+                <Button Grid.Row="1" Content=">" Margin="836,0,-1,0" x:Name="nextMonthButton2" Click="nextMonthButton2_Click" Foreground="Gray"/>
+                <!--</StackPanel>-->
+                <Grid Grid.Row="2" Width="880">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Time" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+
+                    <TextBlock Grid.Column="1" x:Name="Sunday"  FontSize="15" Foreground="Gray" HorizontalAlignment="Center" Margin="40,0,0,0"/>
+                    <TextBlock Grid.Column="2" x:Name="Monday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" x:Name="Tuesday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" x:Name="Wednesday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" x:Name="Thursday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="6" x:Name="Friday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" x:Name="Saturday" FontSize="15" Foreground="Gray" HorizontalAlignment="Center"/>
+
+                </Grid>
+
+                <!--<local:SpecificGridView-->
+                <!--<GridView
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    x:Name="WeekGridView"
+                    Height="Auto"
+                    Background="LightBlue"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ScrollViewer.VerticalScrollMode="Enabled"
+                   >
+                
+
+
+
+
+                    --><!--<local:SpecificGridView.Resources>--><!--
+                    <GridView.Resources>
+                        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+                           
+                            <Setter Property="VariableSizedWrapGrid.ColumnSpan"  
+                                Value="{Binding Width}" />
+                            <Setter Property="HorizontalContentAlignment"  
+                              Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment"  
+                             Value="Stretch" />
+                            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="TabNavigation" Value="Local"/>
+                            <Setter Property="IsHoldingEnabled" Value="True"/>
+                            <Setter Property="Margin" Value="0,0,2,2"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GridViewItem">
+                                        <GridViewItemPresenter x:Name="gridViewItemPresenter" 
+                                    		CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
+                                    		CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
+                                    		ContentMargin="0" 
+                                    		ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                    		CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                    		DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                    		DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                    		DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                    		DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                    		FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" 
+                                    		HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    		Padding="0,0,0,0" 
+                                    		PointerOverBackgroundMargin="1" 
+                                    		PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                                    		PointerOverBackground="Gray"
+                                    		ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                    		SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}" 
+                                    		SelectionCheckMarkVisualEnabled="True" 
+                                    		SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                    		SelectedPointerOverBackground="Gray" 
+                                    		SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                    		SelectedBackground="Gray" 
+                                    		VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+
+                                        </GridViewItemPresenter>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    --><!--</local:SpecificGridView.Resources>--><!--
+                        </GridView.Resources>
+
+
+
+
+                        --><!--<local:SpecificGridView.ItemContainerStyle>--><!--
+                    <GridView.ItemContainerStyle>
+
+                        <StaticResource ResourceKey="GridViewItemStyle1"/>
+                    </GridView.ItemContainerStyle>
+
+                    --><!--<local:SpecificGridView.ItemsPanel>--><!--
+                    <GridView.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            --><!--<VariableSizedWrapGrid ItemHeight="60"  
+                               ItemWidth="40"
+                               Orientation="Horizontal"
+                                MaximumRowsOrColumns="22"/>-->
+                            <!--ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollMode="Enabled"--><!--
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+
+                    --><!--<local:SpecificGridView.ItemTemplate>--><!--
+                    <GridView.ItemTemplate>
+
+                        <DataTemplate>
+                            --><!--<Border BorderBrush="Gray" BorderThickness="1" >--><!--
+                            <Grid   Background="{Binding Color}">
+
+                                --><!--<TextBlock Text="{Binding Name}" VerticalAlignment="Top"/>--><!--
+                                <TextBlock Text="{Binding timeStr}" VerticalAlignment="Top" Foreground="Gray"/>
+                                <TextBlock Text="{Binding Info}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" FontSize="10"/>
+                                --><!--<TextBlock Text="History Info Avalable" VerticalAlignment="Center" Foreground="Gray" FontSize="10"/>--><!--
+                            </Grid>
+
+                            --><!--</Border>--><!--
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+
+                  --><!--</local:SpecificGridView>--><!--
+                    </GridView>-->
+                <local:SpecificGridView
+                    Height="500"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    x:Name="WeekGridView"
+                    SelectionMode="Multiple"
+                    Background="LightBlue"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.VerticalScrollMode="Enabled"
+                   >
+
+
+
+
+
+                    <local:SpecificGridView.Resources>
+
+                        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+
+                            <Setter Property="VariableSizedWrapGrid.ColumnSpan"  
+                                Value="{Binding Width}" />
+                            <Setter Property="HorizontalContentAlignment"  
+                              Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment"  
+                             Value="Stretch" />
+                            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="TabNavigation" Value="Local"/>
+                            <Setter Property="IsHoldingEnabled" Value="True"/>
+                            <Setter Property="Margin" Value="0,0,2,2"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GridViewItem">
+                                        <GridViewItemPresenter x:Name="gridViewItemPresenter" 
+                                    		CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
+                                    		CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
+                                    		ContentMargin="0" 
+                                    		ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                    		CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                    		DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                    		DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                    		DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                    		DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                    		FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" 
+                                    		HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    		Padding="0,0,0,0" 
+                                    		PointerOverBackgroundMargin="1" 
+                                    		PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                                    		PointerOverBackground="Gray"
+                                    		ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                    		SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}" 
+                                    		SelectionCheckMarkVisualEnabled="True" 
+                                    		SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                    		SelectedPointerOverBackground="Gray" 
+                                    		SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                    		SelectedBackground="Gray" 
+                                    		VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+
+                                        </GridViewItemPresenter>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </local:SpecificGridView.Resources>
+                    <!--</GridView.Resources>-->
+
+
+
+
+                    <local:SpecificGridView.ItemContainerStyle>
+                        <!--<GridView.ItemContainerStyle>-->
+
+                        <StaticResource ResourceKey="GridViewItemStyle1"/>
+                    </local:SpecificGridView.ItemContainerStyle>
+
+                    <local:SpecificGridView.ItemsPanel>
+
+
+                        <ItemsPanelTemplate>
+
+                            <VariableSizedWrapGrid ItemHeight="60"  
+                               ItemWidth="40"
+                               Orientation="Horizontal"
+                                MaximumRowsOrColumns="22"/>
+                            <!--ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollMode="Enabled"-->
+                            <!--<StackPanel Orientation="Vertical" />-->
+                        </ItemsPanelTemplate>
+                    </local:SpecificGridView.ItemsPanel>
+
+                    <local:SpecificGridView.ItemTemplate>
+                        <!--<GridView.ItemTemplate>-->
+
+                        <DataTemplate>
+                            <!--<Border BorderBrush="Gray" BorderThickness="1" >-->
+                            <Grid   Background="{Binding Color}">
+
+                                <!--<TextBlock Text="{Binding Name}" VerticalAlignment="Top"/>-->
+                                <TextBlock Text="{Binding timeStr}" VerticalAlignment="Top" Foreground="Gray"/>
+                                <TextBlock Text="{Binding Info}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" FontSize="10"/>
+                                <!--<TextBlock Text="History Info Avalable" VerticalAlignment="Center" Foreground="Gray" FontSize="10"/>-->
+                            </Grid>
+
+                            <!--</Border>-->
+                        </DataTemplate>
+                    </local:SpecificGridView.ItemTemplate>
+
+                </local:SpecificGridView>
+
+
+
+
+            </Grid>
+
+
+        <!--<local:SpecificGridView
+                    Height="500"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    x:Name="WeekGridView"
+                    Margin="0,70,0,0"
+                    Background="LightBlue"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ScrollViewer.VerticalScrollMode="Enabled"
+                   >
+
+
+
+
+
+                <local:SpecificGridView.Resources>
+
+                    <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+
+                        <Setter Property="VariableSizedWrapGrid.ColumnSpan"  
+                                Value="{Binding Width}" />
+                        <Setter Property="HorizontalContentAlignment"  
+                              Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment"  
+                             Value="Stretch" />
+                        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="TabNavigation" Value="Local"/>
+                        <Setter Property="IsHoldingEnabled" Value="True"/>
+                        <Setter Property="Margin" Value="0,0,2,2"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="GridViewItem">
+                                    <GridViewItemPresenter x:Name="gridViewItemPresenter" 
+                                    		CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
+                                    		CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
+                                    		ContentMargin="0" 
+                                    		ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                    		CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                    		DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                    		DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                    		DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                    		DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                    		FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" 
+                                    		HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    		Padding="0,0,0,0" 
+                                    		PointerOverBackgroundMargin="1" 
+                                    		PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                                    		PointerOverBackground="Gray"
+                                    		ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                    		SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}" 
+                                    		SelectionCheckMarkVisualEnabled="True" 
+                                    		SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                    		SelectedPointerOverBackground="Gray" 
+                                    		SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                    		SelectedBackground="Gray" 
+                                    		VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+
+                                    </GridViewItemPresenter>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </local:SpecificGridView.Resources>
+                --><!--</GridView.Resources>--><!--
+
+
+
+
+                <local:SpecificGridView.ItemContainerStyle>
+                --><!--<GridView.ItemContainerStyle>--><!--
+
+                    <StaticResource ResourceKey="GridViewItemStyle1"/>
+                </local:SpecificGridView.ItemContainerStyle>
+
+                <local:SpecificGridView.ItemsPanel>
+               
+
+                    <ItemsPanelTemplate>
+
+                        <VariableSizedWrapGrid ItemHeight="60"  
+                               ItemWidth="40"
+                               Orientation="Horizontal"
+                                MaximumRowsOrColumns="22"/>
+                        --><!--ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollMode="Enabled"-->
+                        <!--<StackPanel Orientation="Vertical" />--><!--
+                    </ItemsPanelTemplate>
+                </local:SpecificGridView.ItemsPanel>
+
+                <local:SpecificGridView.ItemTemplate>
+                --><!--<GridView.ItemTemplate>--><!--
+
+                    <DataTemplate>
+                        --><!--<Border BorderBrush="Gray" BorderThickness="1" >--><!--
+                        <Grid   Background="{Binding Color}">
+
+                            --><!--<TextBlock Text="{Binding Name}" VerticalAlignment="Top"/>--><!--
+                            <TextBlock Text="{Binding timeStr}" VerticalAlignment="Top" Foreground="Gray"/>
+                            <TextBlock Text="{Binding Info}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" FontSize="10"/>
+                            --><!--<TextBlock Text="History Info Avalable" VerticalAlignment="Center" Foreground="Gray" FontSize="10"/>--><!--
+                        </Grid>
+
+                        --><!--</Border>--><!--
+                    </DataTemplate>
+                </local:SpecificGridView.ItemTemplate>
+
+                </local:SpecificGridView>-->
+          
+
+
+        </Grid>
+    </Grid>
+</common:LayoutAwarePage>

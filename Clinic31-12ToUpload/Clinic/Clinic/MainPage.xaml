@@ -1,0 +1,326 @@
+﻿<common:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="Clinic.MainPage"
+    IsTabStop="False"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Clinic"
+    xmlns:common="using:Clinic.Common"
+    xmlns:data="using:Clinic.Model" 
+    xmlns:dt="using:WinRTDatePicker"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <common:LayoutAwarePage.Resources>
+        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0,20,10,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <GridViewItemPresenter CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                                               CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                                               ContentMargin="4"
+                                               ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                               CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                               DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                               DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                               DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" 
+                                               DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                               FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               Padding="{TemplateBinding Padding}" 
+                                               PointerOverBackgroundMargin="1" 
+                                               PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                               PointerOverBackground="#4A2F96"
+                                               ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                               SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}"
+                                               SelectionCheckMarkVisualEnabled="True" 
+                                               SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                               SelectedPointerOverBackground="{ThemeResource ListViewItemSelectedPointerOverBackgroundThemeBrush}" 
+                                               SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                               SelectedBackground="{ThemeResource ListViewItemSelectedBackgroundThemeBrush}" 
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </common:LayoutAwarePage.Resources>
+
+    <Viewbox >
+        <!--Visibility="{Binding  SingedIn, Converter={StaticResource BoolToVisibilityConverter}}"-->
+    <Grid Visibility="{Binding  SignedIn, Converter={StaticResource BoolToVisibilityConverter}}"
+      
+        Style="{StaticResource LayoutRootStyle}" x:Name="myGrid"
+          Width="1366"
+          Height="768"
+          >
+            <!--Background="{Binding DisplayRegistrationColor}"-->
+            <Grid.Background>
+                <ImageBrush x:Name="backgroundGrid" ImageSource="/Assets/Light-Purple-Floral-Backgrounds.jpg" />
+            </Grid.Background>
+        
+            <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+       
+        <Grid Margin="0,2,0,616" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+           
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <Viewbox Margin="18,60,1165,30" Grid.Column="1" >
+                <Image Source="Assets/Medicine-Doctor-suitecase-icon.png" />
+            </Viewbox>
+            <TextBlock Foreground="Black"  x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}" Margin="112,0,165,42" Grid.Column="1"/>
+            <!--<Image x:Name="myImage" Source="Assets/Folders-OS-User-No-Frame-Metro-icon.png"  Visibility="{Binding  NotDisplayRegistrationForm, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" Margin="944,24,264,0"/>-->
+
+            <Viewbox Grid.Column="1" Margin="944,70,264,20" >
+                 <Image x:Name="myImage"  Visibility="{Binding  NotDisplayRegistrationForm, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </Viewbox>
+            <!--<TextBlock  x:Name="logIn"  Text="{Binding logIn2}" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,64,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>-->
+            <TextBlock  x:Name="logIn" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>
+
+            <!-- </StackPanel>-->
+        </Grid>
+      
+
+        <GridView
+             x:Name="mainPage2GridView"
+            Margin="-37,0,37,0"
+            Padding="116,0,40,46"
+            Background="Transparent"
+            SelectionMode="None"
+            IsItemClickEnabled="True"
+            Grid.Row="1"
+           
+            ItemContainerStyle="{StaticResource GridViewItemStyle1}"
+            Visibility="{Binding  NotDisplayRegistrationForm, Converter={StaticResource BoolToVisibilityConverter}}">
+            <!--ItemClick="ItemView_ItemClick" Grid.RowSpan="2" SelectionChanged="mainPageGridView_SelectionChanged"-->
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VariableSizedWrapGrid Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+                <Border BorderBrush="#4A2F96" BorderThickness="0.5">
+            <Grid Background="White"
+                  x:Name="Grid1"
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  
+                  PointerPressed="Grid1_PointerPressed"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="20" FontWeight="SemiBold">Patients</TextBlock>
+                <Image Grid.Column="1" Source="Assets/Sport-Activities-Trekking-icon.png" Margin="39,29,46,29"/>
+               
+                
+            </Grid>
+                </Border>
+
+               
+
+                <Border BorderBrush="#4A2F96" BorderThickness="0.5">
+                    <Grid Background="White"
+                  
+                  x:Name="Grid3"
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  PointerPressed="Grid3_PointerPressed"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="17" FontWeight="SemiBold" Text="Appointments &#xD;&#xA;And schedueling &#xD;&#xA;And Patient Encounter" Grid.ColumnSpan="2" Margin="16,34,122,33"/>
+                <Image Grid.Column="1" Source="Assets/Office-Stuff-Planner-icon.png" Margin="52,41,46,41"/>
+
+
+            </Grid>
+                    </Border>
+
+
+                <Border BorderBrush="#4A2F96" BorderThickness="0.5">
+                    <Grid Background="White"
+                 
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  PointerPressed="Grid_PointerPressed_1"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="20" FontWeight="SemiBold">
+            		Staff
+                </TextBlock>
+                <Image Grid.Column="1" Source="Assets/Users-Nurse-icon.png" Margin="36,37,45,34"/>
+
+
+            </Grid>
+                    </Border>
+
+          
+           
+
+
+
+                <Border BorderBrush="#4A2F96" BorderThickness="0.5">
+                    <Grid Background="White"
+                 PointerPressed="Grid_PointerPressed"
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="20" FontWeight="SemiBold" Text="My Profile"/>
+                <Image Grid.Column="1" Source="Assets/Folders-OS-User-No-Frame-Metro-icon.png" Margin="47,41,45,37"/>
+
+            </Grid>
+                    </Border>
+
+                <Border BorderBrush="#4A2F96" BorderThickness="0.5">
+                    <Grid Background="White"
+                 
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  PointerPressed="Grid_PointerPressed_2"
+                  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="20" FontWeight="SemiBold" Text="About"/>
+                    <Image Grid.Column="1" Source="Assets/Sections-of-Website-About-icon.png" Margin="47,41,45,37"/>
+
+                </Grid>
+                    </Border>
+
+                <!--<Grid Background="Gray"
+                 
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  Visibility="Collapsed"
+                  
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal" Text="Imaging"/>
+                <Image Grid.Column="1" Source="Assets/Medicine-Xray-icon.png" Margin="47,41,45,37"/>
+
+            </Grid>
+                <Grid Background="Gray"
+                  x:Name="Grid2"
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  Visibility="Collapsed"
+                  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal">Settings</TextBlock>
+                    <Image Grid.Column="1" Source="Assets/settings-icon.png" Margin="52,38,46,41"/>
+                </Grid>
+
+
+                <Grid Background="Gray"
+                  x:Name="Grid4"
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Bottom"
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                  PointerPressed="Grid4_PointerPressed"
+                   Visibility="Collapsed"
+                  
+                  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal">
+            		Drugs
+                    </TextBlock>
+                    <Image Grid.Column="1" Source="Assets/Medicine-Pill-icon.png" Margin="52,44,51,44"/>
+
+
+                </Grid>
+                <Grid Background="Gray"
+                 
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                   Visibility="Collapsed"
+                  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal" Text="Ambulance"/>
+                    <Image Grid.Column="1" Source="Assets/Medicine-Ambulance-icon.png" Margin="36,37,45,34"/>
+
+                </Grid>
+
+                <Grid Background="Gray"
+                 x:Name="Grid5"
+                   PointerPressed="Grid5_PointerPressed"
+                  HorizontalAlignment="Left" 
+                  Width="311" 
+                  Height="135"
+                  Margin="0,0,0,0" 
+                   Visibility="Collapsed"
+                  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal" Text="Supplies"/>
+                    <Image Grid.Column="1" Source="Assets/Medicine-Bandage-icon.png" Margin="36,37,45,34"/>
+
+                </Grid>-->
+
+            </GridView>
+
+        <ContentPresenter DataContext="{Binding MainViewModel}" x:Name="registrationView" Margin="110,88,10,82" ContentTemplate="{StaticResource RegistrationTemplate}" Grid.Row="1" 
+            Visibility="{Binding DisplayRegistrationForm, Converter={StaticResource BoolToVisibilityConverter}}">
+        </ContentPresenter>
+
+    </Grid>
+    </Viewbox>
+
+
+</common:LayoutAwarePage>
