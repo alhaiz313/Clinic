@@ -686,7 +686,8 @@ namespace Clinic
             List<NameValueItem> items2 = new List<NameValueItem>();
             List<NameValueItem> items3 = new List<NameValueItem>();
 
-            List<PatientHistory> PhList = await(patientViewModel.patientsInfoTable.Where(ph => ph.PatientId == SelectedPatient.PatientID ).OrderBy(d => d.InfoDate).Take(12).ToListAsync());
+            List<PatientHistory> PhList = await(patientViewModel.patientsInfoTable.Where(ph => ph.PatientId == SelectedPatient.PatientID ).OrderByDescending(d => d.InfoDate).Take(12).ToListAsync());
+            PhList = PhList.OrderBy(d => d.InfoDate).ToList();
             for (int i = 0; i < PhList.Count; i++)
             {
                 try
