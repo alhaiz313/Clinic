@@ -965,20 +965,25 @@ namespace Clinic
 
         }
 
-        private void previousMonthButton2_Click(object sender, RoutedEventArgs e)
+      
+
+        private  void previousMonthButton2_Click(object sender, RoutedEventArgs e)
         {
             
             flip2 = -1;
             backward = true;
+          
             fillWeeklyCalendar();
            
         }
 
-        private void nextMonthButton2_Click(object sender, RoutedEventArgs e)
+        private  void nextMonthButton2_Click(object sender, RoutedEventArgs e)
         {
           
             flip2 = 1;
             backward = false;
+
+          
             fillWeeklyCalendar();
            
         }

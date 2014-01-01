@@ -714,10 +714,13 @@
                     <AppBarSeparator/>
 
                     <!--<AppBarButton x:Uid="Add" Icon="Add" Label="Add Patient" Click="AppBarButton_Click" />-->
-                    <AppBarButton x:Uid="Read" Icon="Read" Label="Read Values" Click="AppBarButton_Click_2"/>
+                    <!--<AppBarButton x:Uid="Read" Icon="Read" Label="Read Values" Click="AppBarButton_Click_2"/>
 
                     <AppBarButton x:Uid="Add" Icon="Add" Label="Add Event"/>
-                    <AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Sync Calendar" />
+                    <AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Sync Calendar" />-->
+                    <AppBarButton x:Uid="Add" Icon="CalendarWeek" Label="Weekly Calendar" Click="AppBarButton_Click"/>
+                    <AppBarButton x:Uid="Remove" Icon="Calendar"  Label="Monthly Calendar" Click="AppBarButton_Click_1"/>
+
 
                 </StackPanel>
             </Grid>
@@ -725,7 +728,7 @@
     </Page.BottomAppBar>
 
 
-    <Page.TopAppBar>
+    <!--<Page.TopAppBar>
         <AppBar Background="Gray">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -733,22 +736,22 @@
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel x:Name="LeftPanel2" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
-                    <!--<AppBarButton x:Uid="Camera" Icon="Camera" Label="Camera"/>-->
+                    --><!--<AppBarButton x:Uid="Camera" Icon="Camera" Label="Camera"/>--><!--
                 </StackPanel>
                 <StackPanel x:Name="RightPanel2" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
 
-                    <!--<AppBarButton x:Uid="Bookmarks" Icon="Bookmarks" Label="Add Patient History" Click="AppBarButton_Click_1"/>
-                    <AppBarButton x:Uid="Document" Icon="Document" Label="Add Patient Document" Click="AppBarButton_Click_3"/>-->
+                    --><!--<AppBarButton x:Uid="Bookmarks" Icon="Bookmarks" Label="Add Patient History" Click="AppBarButton_Click_1"/>
+                    <AppBarButton x:Uid="Document" Icon="Document" Label="Add Patient Document" Click="AppBarButton_Click_3"/>--><!--
 
                     <AppBarSeparator/>
 
                     <AppBarButton x:Uid="Add" Icon="CalendarWeek" Label="Weekly Calendar" Click="AppBarButton_Click"/>
                     <AppBarButton x:Uid="Remove" Icon="Calendar"  Label="Monthly Calendar" Click="AppBarButton_Click_1"/>
-                    <!--<AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Refresh Patient List" Click="AppBarButton_Click_2"/>-->
+                    --><!--<AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Refresh Patient List" Click="AppBarButton_Click_2"/>--><!--
 
                 </StackPanel>
             </Grid>
         </AppBar>
-    </Page.TopAppBar>
+    </Page.TopAppBar>-->
 
 </common:LayoutAwarePage>

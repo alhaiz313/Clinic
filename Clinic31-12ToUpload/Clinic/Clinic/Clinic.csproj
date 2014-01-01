@@ -190,6 +190,7 @@
     <Content Include="Assets\Administrator-icon.png" />
     <Content Include="Assets\Appointment-Book.png" />
     <Content Include="Assets\Appointment.png" />
+    <Content Include="Assets\BadgeLogo.scale-180.png" />
     <Content Include="Assets\Basic-Document-icon.png" />
     <Content Include="Assets\Button-Next-icon.png" />
     <Content Include="Assets\Close-icon.png" />

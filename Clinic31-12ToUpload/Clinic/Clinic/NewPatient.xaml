@@ -614,7 +614,7 @@
                     <AppBarSeparator/>
                     
                     <AppBarButton x:Uid="Add" Icon="Add" Label="Add Patient" Click="AppBarButton_Click" />
-                    <AppBarButton x:Uid="Remove" Icon="Remove" Label="Remove Patient"/>
+                    <!--<AppBarButton x:Uid="Remove" Icon="Remove" Label="Remove Patient"/>-->
                     <AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Refresh Patient List" Click="AppBarButton_Click_2"/>
 
                 </StackPanel>

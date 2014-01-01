@@ -1,0 +1,3 @@
+MainPackage=C:\Users\mee3u_000\Desktop\Clinic31-12ToUpload\Clinic\Clinic\bin\x64\Release\Clinic_1.1.0.0_Bundle\Clinic_1.1.0.0_x64.appx
+SymbolPackage=C:\Users\mee3u_000\Desktop\Clinic31-12ToUpload\Clinic\Clinic\AppPackages\Clinic_1.1.0.0_Test\Clinic_1.1.0.0_x64.appxsym
+ResourcePack=C:\Users\mee3u_000\Desktop\Clinic31-12ToUpload\Clinic\Clinic\bin\x64\Release\Clinic_1.1.0.0_Bundle\Clinic_1.1.0.0_scale-180.appx

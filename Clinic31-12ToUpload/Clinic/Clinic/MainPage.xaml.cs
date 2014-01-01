@@ -117,6 +117,8 @@ namespace Clinic
         public   async void InitAuth()
         
         {
+            
+
             if (Connection.User == null)
             {
                 if (Success) // azure already configured
@@ -124,7 +126,7 @@ namespace Clinic
                     Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
                     myGrid.Opacity = 0.5;
                 }
-               
+              
 
                 await Task.Run(() =>
                 {

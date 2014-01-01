@@ -75,6 +75,8 @@ namespace Clinic
                     SignedIn = false;
                     NotDisplayRegistrationForm = !DisplayRegistrationForm;
                     MainPage.Success = true;
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
+
                 }catch(Exception ee)
                 {
                     Debug.WriteLine(ee.Message);
