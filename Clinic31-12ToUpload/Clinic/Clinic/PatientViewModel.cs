@@ -86,6 +86,8 @@ namespace Clinic
         {
             Add_Patient = new DelegateCommand(async () =>
                {
+                   Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
+           
                    MessageDialog mm = new MessageDialog("mission Started");
                    //await mm.ShowAsync();
 
@@ -208,6 +210,9 @@ namespace Clinic
                    createPatient();
                  RefreshFlag = !RefreshFlag;
                  media = null;
+
+                 Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 2);
+           
                }, true);
 
 

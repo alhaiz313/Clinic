@@ -186,11 +186,23 @@ namespace Clinic
 
         static List<Appointment> appList = null;
         static List<PatientEncounter> peList =null;
+        bool stay = false;
         public async void fillCalendar()
         {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
+           
             Windows.Globalization.Calendar calendar = new Windows.Globalization.Calendar();
 
             List<NameValueItem2> dList = new List<NameValueItem2>();
+            try
+            {
+                if ((!SelectedMonth.Equals(calendar.MonthAsSoloString()) || !SelectedYear.Equals(calendar.Year.ToString())) && flip == 0)
+                    stay = true;
+            }
+            catch
+            {
+
+            }
 
             int noOfDaysInTheSelectedMonth = 0;
             int shift = 0;
@@ -198,10 +210,12 @@ namespace Clinic
 
             if (flip == 0)
             {
+                if (!stay)
+                {
+                    SelectedMonth = calendar.MonthAsSoloString();
 
-                SelectedMonth = calendar.MonthAsSoloString();
-
-                SelectedYear = calendar.Year.ToString();
+                    SelectedYear = calendar.Year.ToString();
+                }
                 // firstDay = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, 1).ToString("dddd");
             }
 
@@ -338,39 +352,18 @@ namespace Clinic
                 {
                     pee = new PatientEncounter();
                 }
-                //if (tempList.Count != 0)
-                //{
-                    //if (tempList.Count == 1)
-                    //{
-                        //if (loopDate.ToString("MMMM dd, yyyy").Equals(CurrentDate.ToString("MMMM dd, yyyy")))
-                        //{
-                        //    dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = temp, Color = "#C0D9D9" });
-                        //}
-                        //else
-                        //{
+              
+
                 dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = temp, Color = ((temp.PatientId != 0) ? "Pink" : (pee.AppointmentId!=null)? "LightBlue": (app.PatientID != 0 ?"#BFB5DF":"White")), appointment = app, patientEncounter = pee,Width1 = ((temp.PatientId != 0 )|| (temp.PatientId == 0 && app.PatientID == 0) ? 98 : 0), Width2 = ((app.PatientID != 0 && temp.PatientId == 0 && pee.AppointmentId == null) ? 98 : 0) ,Width3 = (pee.AppointmentId!=null?98:0)});
-                        //}
-                //    }
-                //    else
-                //    {
-                //        //foreach (PatientHistory ph in tempList)
-                //        //{
-                //            dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = tempList.First(), Color = "Pink" });
-
-
-                //        //}
-                //    }
-                //}
-                //else
-                //{
-                //    dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = null, Color = "#BFB5DF" });
-                //}
-
+                    
                
             }
 
             MonthGridView.ItemsSource = dList;
             flip = 0;
+
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 2);
+           
         }
 
         private void previousMonthButton_Click(object sender, RoutedEventArgs e)
@@ -441,21 +434,34 @@ namespace Clinic
                 }
                 else if(((NameValueItem2)e.ClickedItem).patientEncounter.AppointmentId!=null)
                 {
-                    Appointment app = getAppointment(SelectedNVI.patientEncounter.AppointmentId);
-                    User u = getUser(app.UserID);
-                  //  Patient p = getPatient(app.PatientID);
-                    LightDismissAnimatedPopupTextBlock.Text = "Doctor is " + u.LName + ", " + u.FName;
-                    LightDismissAnimatedPopupTextBlock3.Text = "Complaint is" + app.Complaint;//((NameValueItem2)e.ClickedItem).appointment.Complaint;
-                    LightDismissAnimatedPopupTextBlock4.Text = "Diagnostics is " + SelectedNVI.patientEncounter.Diagnostics; //app.Date.ToString("MMMM dd, yyyy");
-                    LightDismissAnimatedPopupTextBlock5.Text = "Drug is " + SelectedNVI.patientEncounter.Drugs;
-                    LightDismissAnimatedPopupTextBlock6.Text = "Notes are " + SelectedNVI.patientEncounter.Notes;
-                    LightDismissAnimatedPopupTextBlock7.Text = "Date is " + app.Date.ToString("MMMM dd, yyyy");
+                    countClick++;
+                    if (countClick == 1)
+                    {
+                        Appointment app = getAppointment(SelectedNVI.patientEncounter.AppointmentId);
+                        User u = getUser(app.UserID);
+                        //  Patient p = getPatient(app.PatientID);
+                        LightDismissAnimatedPopupTextBlock.Text = "Doctor is " + u.LName + ", " + u.FName;
+                        LightDismissAnimatedPopupTextBlock3.Text = "Complaint is" + app.Complaint;//((NameValueItem2)e.ClickedItem).appointment.Complaint;
+                        LightDismissAnimatedPopupTextBlock4.Text = "Diagnostics is " + SelectedNVI.patientEncounter.Diagnostics; //app.Date.ToString("MMMM dd, yyyy");
+                        LightDismissAnimatedPopupTextBlock5.Text = "Drug is " + SelectedNVI.patientEncounter.Drugs;
+                        LightDismissAnimatedPopupTextBlock6.Text = "Notes are " + SelectedNVI.patientEncounter.Notes;
+                        LightDismissAnimatedPopupTextBlock7.Text = "Date is " + app.Date.ToString("MMMM dd, yyyy");
 
 
-                    LightDismissAnimatedPopupTextBlock2.Text = ((NameValueItem2)e.ClickedItem).appointment.TimeFrom.Hours + ":" + ((NameValueItem2)e.ClickedItem).appointment.TimeFrom.Minutes;
-                    if (!LightDismissAnimatedPopup.IsOpen) { LightDismissAnimatedPopup.IsOpen = true; }
+                        LightDismissAnimatedPopupTextBlock2.Text = ((NameValueItem2)e.ClickedItem).appointment.TimeFrom.Hours + ":" + ((NameValueItem2)e.ClickedItem).appointment.TimeFrom.Minutes;
+                        if (!LightDismissAnimatedPopup.IsOpen) { LightDismissAnimatedPopup.IsOpen = true; }
+                    }
+                    else
+                    {
+                        BindEncounter = ((NameValueItem2)e.ClickedItem).patientEncounter;
+                            ShowAddEncounter = Visibility.Visible;
+                    
+                            
+                            countClick = 0;
+                    }
+
                 }
-                else if (((NameValueItem2)e.ClickedItem).appointment.PatientID!=0)
+                else if (((NameValueItem2)e.ClickedItem).appointment.PatientID != 0 )
                 {  countClick++;
                     if(countClick==1){
                     
@@ -528,7 +534,8 @@ namespace Clinic
         //Add New Patient
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            
+           // Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
+                       
             patientViewModel.ShowAddPatientTemplate = true;
             patientViewModel.NotDisplayPatientForm = false;
             patientViewModel.DisplayRegistrationColor = "Gray";
@@ -801,8 +808,16 @@ namespace Clinic
                     await mm.ShowAsync();
                     return;
                 }
-            
-            PatientEncounter.InsertNewPatientEncounter(BindEncounter);
+            if (BindEncounter.Id == 0)
+            {
+
+                PatientEncounter.InsertNewPatientEncounter(BindEncounter);
+            }
+            else
+            {
+                PatientEncounter.UpdatePatientEncounter(BindEncounter);
+                await Task.Delay(1000);
+            }
             ShowAddEncounter = Visibility.Collapsed;
             BindEncounter = null;
             fillCalendar();

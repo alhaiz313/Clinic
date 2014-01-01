@@ -1444,7 +1444,7 @@ information to connect to your cloud database.
 
     <DataTemplate x:Key="AddAppointment" >
 
-        <Grid x:Name="Input" Grid.Row="1" Margin="420,50,420,200"  Background="Gray">
+        <Grid x:Name="Input" Grid.Row="1" Margin="420,50,360,200"  Background="Gray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

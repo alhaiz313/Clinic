@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Clinic.Model
 {
@@ -83,7 +84,14 @@ namespace Clinic.Model
 
         public static async void DeletePatientEncounter(PatientEncounter pe)
         {
-            await patientEncounter.DeleteAsync(pe);
+            try
+            {
+                await patientEncounter.DeleteAsync(pe);
+            }
+            catch
+            {
+                new MessageDialog("Deleting error").ShowAsync();
+            }
         }
 
         public static async void UpdatePatientEncounter(PatientEncounter pe)

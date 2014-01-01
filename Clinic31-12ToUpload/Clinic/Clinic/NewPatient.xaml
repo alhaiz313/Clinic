@@ -609,7 +609,7 @@
 
                     <AppBarButton x:Uid="Bookmarks" Icon="Bookmarks" Label="Add Patient History" Click="AppBarButton_Click_1"/>
                     <AppBarButton x:Uid="Document" Icon="Document" Label="Add Patient Document" Click="AppBarButton_Click_3"/>
-                    <AppBarButton x:Uid="Encounter" Icon="ContactInfo" Label="Add Patient Encounter" />
+                    <!--<AppBarButton x:Uid="Encounter" Icon="ContactInfo" Label="Add Patient Encounter" />-->
 
                     <AppBarSeparator/>
                     
