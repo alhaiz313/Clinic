@@ -212,7 +212,7 @@ namespace Clinic
         }
 
         static  List<Patient> pList = null;
-        public static Patient getPatient(int id)
+        public static Patient getPatient(string id)
         {
             Patient pp = pList.Where(p => p.PatientID.Equals(id)).ToList().First();
             return pp;

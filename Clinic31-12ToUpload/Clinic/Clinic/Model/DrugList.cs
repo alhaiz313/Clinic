@@ -14,7 +14,7 @@ namespace Clinic.Model
     {
 
         [DataMember(Name = "perscriptionId")]
-        public int PerscriptionId
+        public string PerscriptionId
         {
             get;
             set;

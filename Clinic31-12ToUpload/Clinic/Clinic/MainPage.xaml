@@ -37,7 +37,7 @@
                                                Padding="{TemplateBinding Padding}" 
                                                PointerOverBackgroundMargin="1" 
                                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
-                                               PointerOverBackground="#4A2F96"
+                                               PointerOverBackground="Gray"
                                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
                                                SelectedPointerOverBorderBrush="{ThemeResource ListViewItemSelectedPointerOverBorderThemeBrush}"
                                                SelectionCheckMarkVisualEnabled="True" 
@@ -149,7 +149,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="17" FontWeight="SemiBold" Text="Appointments &#xD;&#xA;And schedueling &#xD;&#xA;And Patient Encounter" Grid.ColumnSpan="2" Margin="16,34,122,33"/>
+                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="17" FontWeight="SemiBold" Text="Appointments &#xD;&#xA;And schedueling " Grid.ColumnSpan="2" Margin="16,34,122,33"/>
                 <Image Grid.Column="1" Source="Assets/Office-Stuff-Planner-icon.png" Margin="52,41,46,41"/>
 
 
@@ -222,14 +222,13 @@
                 </Grid>
                     </Border>
 
-                <!--<Grid Background="Gray"
+                <Grid Background="Gray"
                  
                   HorizontalAlignment="Left" 
                   Width="311" 
                   Height="135"
                   Margin="0,0,0,0" 
-                  Visibility="Collapsed"
-                  
+           
                   >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -239,13 +238,15 @@
                 <Image Grid.Column="1" Source="Assets/Medicine-Xray-icon.png" Margin="47,41,45,37"/>
 
             </Grid>
-                <Grid Background="Gray"
+            
+            
+                <!--<Grid Background="Gray"
                   x:Name="Grid2"
                   HorizontalAlignment="Left" 
                   Width="311" 
                   Height="135"
                   Margin="0,0,0,0" 
-                  Visibility="Collapsed"
+                  
                   >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -253,7 +254,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal">Settings</TextBlock>
                     <Image Grid.Column="1" Source="Assets/settings-icon.png" Margin="52,38,46,41"/>
-                </Grid>
+                </Grid>-->
 
 
                 <Grid Background="Gray"
@@ -264,7 +265,7 @@
                   Height="135"
                   Margin="0,0,0,0" 
                   PointerPressed="Grid4_PointerPressed"
-                   Visibility="Collapsed"
+                  
                   
                   >
                     <Grid.ColumnDefinitions>
@@ -284,7 +285,7 @@
                   Width="311" 
                   Height="135"
                   Margin="0,0,0,0" 
-                   Visibility="Collapsed"
+                  
                   >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -302,7 +303,7 @@
                   Width="311" 
                   Height="135"
                   Margin="0,0,0,0" 
-                   Visibility="Collapsed"
+                  
                   >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -311,7 +312,7 @@
                     <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal" Text="Supplies"/>
                     <Image Grid.Column="1" Source="Assets/Medicine-Bandage-icon.png" Margin="36,37,45,34"/>
 
-                </Grid>-->
+                </Grid>
 
             </GridView>
 

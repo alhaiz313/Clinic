@@ -18,9 +18,9 @@ namespace Clinic.Model
             set;
         }
 
-        private int patientId;
+        private string patientId;
         [DataMember(Name = "PatientId")]
-        public int PatientId
+        public string PatientId
         {
             get { return patientId; }
             set { SetValue(ref patientId, value); }

@@ -92,7 +92,7 @@ namespace Clinic.Common
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string Gender = (string)value;
-            return (Gender=="Male") ? male : female;
+            return (Gender == "Male") ? male : female;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -108,7 +108,7 @@ namespace Clinic.Common
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             PatientHistory pHistory = (PatientHistory)value;
-            return (pHistory.PatientId != 0) ? str : String.Empty;
+            return (!String.IsNullOrEmpty(pHistory.PatientId)) ? str : String.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -119,11 +119,11 @@ namespace Clinic.Common
     //AppointmentConverter
     public class AppointmentConverter : IValueConverter
     {
-       // string str = "Appointment";
+        // string str = "Appointment";
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            Appointment app= (Appointment)value;
-            return (app.PatientID != 0) ? "Appointment" : String.Empty;
+            Appointment app = (Appointment)value;
+            return (!String.IsNullOrEmpty(app.PatientID )) ? "Appointment" : String.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -135,11 +135,11 @@ namespace Clinic.Common
     //HistoryVisibility
     public class HistoryVisibility : IValueConverter
     {
-        
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             PatientHistory pHistory = (PatientHistory)value;
-            return (pHistory.PatientId != 0) ? Visibility.Visible : Visibility.Collapsed;
+            return (!String.IsNullOrEmpty(pHistory.PatientId )) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -155,7 +155,7 @@ namespace Clinic.Common
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             Appointment app = (Appointment)value;
-            return (app.PatientID != 0) ? Visibility.Visible : Visibility.Collapsed;
+            return (!String.IsNullOrEmpty(app.PatientID))  ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -169,9 +169,9 @@ namespace Clinic.Common
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             OutLookEvent myOEvent = (OutLookEvent)value;
-          
-            return (myOEvent != null ) ? "Outlook Event: " + myOEvent.Name : String.Empty;//"Available Info": String.Empty;
-                // "Outlook Event: "+ myOEvent.Name : String.Empty;
+
+            return (myOEvent != null) ? "Outlook Event: " + myOEvent.Name : String.Empty;//"Available Info": String.Empty;
+            // "Outlook Event: "+ myOEvent.Name : String.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -182,7 +182,7 @@ namespace Clinic.Common
 
     }
 
-   // 
+    // 
 
     public class OutLookEventConverterWeekly : IValueConverter
     {
@@ -210,7 +210,7 @@ namespace Clinic.Common
         {
             User u = (User)value;
 
-            return (u!=null?u.FName:null);
+            return (u != null ? u.FName : null);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -229,7 +229,7 @@ namespace Clinic.Common
         {
             int total = (int)value;
 
-            return (total !=0 ? total.ToString(): String.Empty);
+            return (total != 0 ? total.ToString() : String.Empty);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -247,7 +247,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return (wh.From.TimeOfDay.ToString().Equals(wh.To.TimeOfDay.ToString())? null:( wh.From.TimeOfDay.Hours == 7 ? "Day Shift" : wh.From.TimeOfDay.Hours == 15? "Swing Shift": "Night Shift"));
+            return (wh.From.TimeOfDay.ToString().Equals(wh.To.TimeOfDay.ToString()) ? null : (wh.From.TimeOfDay.Hours == 7 ? "Day Shift" : wh.From.TimeOfDay.Hours == 15 ? "Swing Shift" : "Night Shift"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -267,7 +267,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return (wh.From.TimeOfDay.ToString().Equals(wh.To.TimeOfDay.ToString())? null : wh.From.TimeOfDay.ToString() +"-" + wh.To.TimeOfDay.ToString());
+            return (wh.From.TimeOfDay.ToString().Equals(wh.To.TimeOfDay.ToString()) ? null : wh.From.TimeOfDay.ToString() + "-" + wh.To.TimeOfDay.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -285,7 +285,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return ((wh.BreakTimeFrom.ToString().Equals(wh.BreakTimeTo.ToString()))? null : wh.BreakTimeFrom.ToString() + "-" + wh.BreakTimeTo.ToString());
+            return ((wh.BreakTimeFrom.ToString().Equals(wh.BreakTimeTo.ToString())) ? null : wh.BreakTimeFrom.ToString() + "-" + wh.BreakTimeTo.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -304,7 +304,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return (wh.OnCallOnly?"Assets/phone-icon-th.png":"");
+            return (wh.OnCallOnly ? "Assets/phone-icon-th.png" : "");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -323,7 +323,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return (wh.TimeOffReason.Equals(String.Empty) ? "" : wh.TimeOffReason.Equals("Time Off") ? "Red" : wh.TimeOffReason.Equals("Vacation") ? "Green" : wh.TimeOffReason.Equals("Business Related") ? "Violet" : wh.TimeOffReason.Equals("Family Emergency") ? "Pink" : wh.TimeOffReason.Equals("Absent") ? "Blue" : wh.TimeOffReason.Equals("Sick Leave") ? "Yellow" : "Red");
+            return (String.IsNullOrEmpty(wh.TimeOffReason) ? "" : wh.TimeOffReason.Equals("Time Off") ? "Red" : wh.TimeOffReason.Equals("Vacation") ? "Green" : wh.TimeOffReason.Equals("Business Related") ? "Violet" : wh.TimeOffReason.Equals("Family Emergency") ? "Pink" : wh.TimeOffReason.Equals("Absent") ? "Blue" : wh.TimeOffReason.Equals("Sick Leave") ? "Yellow" : "Red");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -359,7 +359,7 @@ namespace Clinic.Common
         {
             WorkHours wh = (WorkHours)value;
 
-            return (wh.TimeOffReason != String.Empty ? wh.TimeOffReason : String.Empty);
+            return (String.IsNullOrEmpty(wh.TimeOffReason)  ? wh.TimeOffReason : String.Empty);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -372,13 +372,13 @@ namespace Clinic.Common
 
     public class EventConverter : IValueConverter
     {
-        
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             NameValueItem nvi = (NameValueItem)value;
 
-           
-            return (nvi.myOutLookEvent == null && nvi.workHours != null ? 0 : (nvi.myOutLookEvent != null && nvi.workHours != null)? 30 : 60);
+
+            return (nvi.myOutLookEvent == null && nvi.workHours != null ? 0 : (nvi.myOutLookEvent != null && nvi.workHours != null) ? 30 : 60);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -397,8 +397,8 @@ namespace Clinic.Common
         {
             NameValueItem nvi = (NameValueItem)value;
 
-           // return ( nvi.workHours != null ? Visibility.Visible : Visibility.Collapsed);
-            return (nvi.workHours !=null && nvi.myOutLookEvent == null? 60 :(nvi.workHours !=null && nvi.myOutLookEvent != null)?30:0 );
+            // return ( nvi.workHours != null ? Visibility.Visible : Visibility.Collapsed);
+            return (nvi.workHours != null && nvi.myOutLookEvent == null ? 60 : (nvi.workHours != null && nvi.myOutLookEvent != null) ? 30 : 0);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -417,7 +417,7 @@ namespace Clinic.Common
             string timeStr = (string)value;
 
             // return ( nvi.workHours != null ? Visibility.Visible : Visibility.Collapsed);
-            return (String.IsNullOrEmpty(timeStr)?"":"         _");
+            return (String.IsNullOrEmpty(timeStr) ? "" : "         _");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -437,13 +437,13 @@ namespace Clinic.Common
             string app = (string)value;
 
             // return ( nvi.workHours != null ? Visibility.Visible : Visibility.Collapsed);
-            return (String.IsNullOrEmpty(app)? "_" : app);
+            return (String.IsNullOrEmpty(app) ? "_" : app);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
-           
+
         }
 
 
@@ -458,8 +458,8 @@ namespace Clinic.Common
         {
             Appointment app = (Appointment)value;
 
-           
-            return ((app!=null) ? Visibility.Visible : Visibility.Collapsed);
+
+            return ((app != null) ? Visibility.Visible : Visibility.Collapsed);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -480,7 +480,7 @@ namespace Clinic.Common
             Invitation app = (Invitation)value;
 
 
-            return ((app!= null) ? Visibility.Visible : Visibility.Collapsed);
+            return ((app != null) ? Visibility.Visible : Visibility.Collapsed);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -498,14 +498,14 @@ namespace Clinic.Common
         //string str = "History info available";
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            int app = (int)value;
+            string app = (string)value;
             Patient pa = null;
-            if (!(app).Equals(0))
+            if (!String.IsNullOrEmpty(app))
             {
-                pa= Scheduling.getPatient(app);
+                pa = Scheduling.getPatient(app);
             }
-           
-            return (pa==null) ? "_" : ("_"+pa.LName+", "+pa.FName);
+
+            return (pa == null) ? "_" : ("_" + pa.LName + ", " + pa.FName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -525,7 +525,7 @@ namespace Clinic.Common
         {
             string doc = (string)value;
             User doctor = null;
-            if (!(doc).Equals("0"))
+            if (!String.IsNullOrEmpty(doc))
             {
                 doctor = Scheduling.getUser(doc);
             }
@@ -702,7 +702,7 @@ namespace Clinic.Common
         {
             Patient pa = (Patient)value;
 
-            return (pa.LName+", "+pa.FName);
+            return (pa.LName + ", " + pa.FName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -720,11 +720,11 @@ namespace Clinic.Common
         {
             string appId = (string)value;
             Appointment app = null;
-            if(!String.IsNullOrEmpty(appId))
+            if (!String.IsNullOrEmpty(appId))
             {
                 app = NewPatient.getAppointment(appId);
             }
-             User u = NewPatient.getUser(app.UserID);
+            User u = NewPatient.getUser(app.UserID);
             return (u.LName + ", " + u.FName);
         }
 
@@ -738,16 +738,16 @@ namespace Clinic.Common
 
     public class AppIdToPatient : IValueConverter
     {
-       
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string appId = (string)value;
             Appointment app = null;
-            if(!String.IsNullOrEmpty(appId))
+            if (!String.IsNullOrEmpty(appId))
             {
                 app = NewPatient.getAppointment(appId);
             }
-             Patient u = NewPatient.getPatient(app.PatientID);
+            Patient u = NewPatient.getPatient(app.PatientID);
             return (u.LName + ", " + u.FName);
         }
 
@@ -789,7 +789,7 @@ namespace Clinic.Common
         }
     }
 
-    public class AppIdToFromTime: IValueConverter
+    public class AppIdToFromTime : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -835,7 +835,7 @@ namespace Clinic.Common
 
     }
 
-    
+
     public class AppIdToComplaint : IValueConverter
     {
 
@@ -866,7 +866,7 @@ namespace Clinic.Common
         {
             PatientEncounter pe = (PatientEncounter)value;
             //if(pe.AppointmentId!=null)
-            return ((pe.AppointmentId != null)?"Patient Encounter":"");
+            return ((pe.AppointmentId != null) ? "Patient Encounter" : "");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -876,5 +876,5 @@ namespace Clinic.Common
         }
 
     }
-  
+
 }

@@ -1,5 +1,5 @@
 ﻿using Clinic.Model;
-using Clinic.myBehavior;
+//using Clinic.myBehavior;
 using Microsoft.Live;
 using System;
 using System.Collections.Generic;

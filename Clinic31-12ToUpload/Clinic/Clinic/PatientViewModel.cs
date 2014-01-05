@@ -26,6 +26,7 @@ using Microsoft.WindowsAzure;
 
 
 using Microsoft.WindowsAzure.Storage;
+using System.Net;
 
 
 namespace Clinic
@@ -285,16 +286,26 @@ namespace Clinic
                    new MessageDialog(e.Message).ShowAsync();
                    return;
                }
-                try
-                {
-                    await patientsInfoTable.InsertAsync(Pi);
-                }
-                catch(Exception e)
-                {
-                    new MessageDialog(e.Message).ShowAsync();
-                    return;
-                }
-                await new MessageDialog("finished Adding info").ShowAsync();
+               try
+               {
+                   await patientsInfoTable.InsertAsync(Pi);
+               }
+                //catch (WebException webEx)
+                //{
+                //    string errorDetail = string.Empty;
+                //    using (StreamReader streamReader = new StreamReader(webEx.Response.GetResponseStream(), true))
+                //    {
+                //        errorDetail = streamReader.ReadToEnd();
+                //    }
+                //}
+
+               catch (Exception e)
+               {
+                   new MessageDialog(e.Message).ShowAsync();
+                   return;
+               }
+
+                //await new MessageDialog("finished Adding info").ShowAsync();
                 ShowAddPatientInfoTemplate = false;
                 NotDisplayPatientForm = true;
 
@@ -319,6 +330,9 @@ namespace Clinic
 
             Add_Patient_Document = new DelegateCommand(async () =>
             {
+
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
+           
                 if (string.IsNullOrWhiteSpace(ComboPatient) ||string.IsNullOrWhiteSpace(SelectedFile))
                       
                 {
@@ -327,8 +341,8 @@ namespace Clinic
                     await m.ShowAsync();
                     return;
                 }
-                await new MessageDialog("Adding info").ShowAsync();
-                await new MessageDialog(ComboPatient).ShowAsync();
+                //await new MessageDialog("Adding info").ShowAsync();
+                //await new MessageDialog(ComboPatient).ShowAsync();
                 string ln = ComboPatient.Substring(0, ComboPatient.IndexOf(","));
                 string fn = ComboPatient.Substring(ComboPatient.IndexOf(",")+2);
                 Pd.PatientID = (await patientsTable.Where(p =>( p.LName==(ln ) && p.FName==(fn) )).Select(patient => patient.PatientID).ToListAsync()).First();
@@ -371,7 +385,10 @@ namespace Clinic
                 }
                 catch (Exception e)
                 {
-                    new MessageDialog("error occured").ShowAsync();
+                    new MessageDialog("Sorry file couldn't be found.").ShowAsync();
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 2);
+           
+                    return;
                 }
 
                 if (!string.IsNullOrEmpty(Pd.SasQueryString))
@@ -393,34 +410,9 @@ namespace Clinic
                         await blobFromSASCredential.UploadFromStreamAsync(fileStream.AsInputStream());
                     }
                 }
-                //CloudStorageAccount storageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(StorageConnectionString); //.Parse(CloudConfigurationManager.GetSetting("MarketviewConnectionString"));
-               // CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-
               
-
-               // // Retrieve a reference to a container. 
-               // CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
-
-               // // Create the container if it doesn't already exist.
-               // await container.CreateIfNotExistsAsync();
-
-               // await container.SetPermissionsAsync(new BlobContainerPermissions
-               //     {
-               //         PublicAccess =
-               //             BlobContainerPublicAccessType.Blob
-               //     });
-
-               // CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
-
-               // // Create or overwrite the "myblob" blob with contents from a local file.
-               // using (var fileStream = System.IO.File.OpenRead(@"path\myfile"))
-               // {
-               //    await  blockBlob.UploadFromStreamAsync(fileStream);
-               // }
-
                 /////////////////////////////////////////////////////////////////
-                  new MessageDialog("Mission Done").ShowAsync();
+                  //new MessageDialog("Mission Done").ShowAsync();
 
 
                 ShowAddPatientDocumentTemplate = false;
@@ -434,6 +426,8 @@ namespace Clinic
                 media = null;
                 SelectedFile =null;
                 RefreshFlag2 = !RefreshFlag2;
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 2);
+           
             }, true);
 
 
@@ -483,7 +477,11 @@ namespace Clinic
                     FileStream = await media.OpenAsync(Windows.Storage.FileAccessMode.Read);
 
                     SelectedFile = media.Name;
-                    
+                    if(SelectedFile.Contains(" "))
+                    {
+                        new MessageDialog("please remove the spaces from the original file name then re-select it.").ShowAsync();
+                        return;
+                    }
 
                 }
                 open = null;
@@ -583,7 +581,7 @@ namespace Clinic
             patientsInfoTable = Connection.MobileService.GetTable<PatientHistory>();
             Pi = new PatientHistory
             {
-             PatientId = 0,  
+                PatientId = String.Empty,
              Cholestrol = String.Empty,
              InfoDate = DateTime.Now,
              BloodPressure = String.Empty,
@@ -610,7 +608,7 @@ namespace Clinic
             patientsDocumentTable = Connection.MobileService.GetTable<PatientDocument>();
             Pd = new PatientDocument
             {
-               PatientID = 0
+               PatientID = String.Empty
             };
 
             Items = await getListOfNames();

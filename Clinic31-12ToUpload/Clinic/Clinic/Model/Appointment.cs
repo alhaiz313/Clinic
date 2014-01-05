@@ -31,7 +31,7 @@ namespace Clinic.Model
 
         //private string patientID;
         [DataMember(Name = "patientID")]
-        public int PatientID
+        public string PatientID
         {
             get;
             set;

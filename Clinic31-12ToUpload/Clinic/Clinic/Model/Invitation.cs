@@ -13,7 +13,7 @@ namespace Clinic.Model
     public class Invitation:ViewModel
     {
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "fromUserId")]
         public string FromUserId { get; set; }
@@ -22,7 +22,7 @@ namespace Clinic.Model
         public string ToUserId { get; set; }
 
         [DataMember(Name = "patientID")]
-        public int PatientID { get; set; }
+        public string PatientID { get; set; }
 
         [DataMember(Name = "Complaint")]
         public string Complaint { get; set; }

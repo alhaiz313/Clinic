@@ -1,7 +1,9 @@
 ﻿using Clinic.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -35,6 +37,8 @@ namespace Clinic
         Appointment app = null;
         public Scheduling()
         {
+
+
             oldChanged = Changed;
             this.InitializeComponent();
             this.logIn.Text = Connection.UserName;
@@ -59,7 +63,7 @@ namespace Clinic
                 }
             };
 
-         
+
 
 
             this.PropertyChanged += (sender, e) =>
@@ -111,8 +115,8 @@ namespace Clinic
 
             AddAppointmentView.DataContext = this;
             DataContext = this;
-           app = (new Appointment());
-          
+            app = (new Appointment());
+
             SetupCommands();
             fillDoctors();
             fillGridView();
@@ -142,8 +146,14 @@ namespace Clinic
             //this.VerticalPatientsView.SelectionChanged += VerticalPatientsView_SelectionChanged;
             this.VerticalPatientsView.ItemClick += VerticalPatientsView_ItemClick;
             // this.VerticalPatientsView.RightTapped += VerticalPatientsView_RightTapped;
+            try
+            {
+                SelectedPatient = pList.First();
+            }
+            catch
+            {
 
-            SelectedPatient = pList.First();
+            }
         }
 
 
@@ -175,7 +185,7 @@ namespace Clinic
 
             }
 
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Low, async() =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Low, async () =>
             {
                 while (true)
                 {
@@ -188,7 +198,7 @@ namespace Clinic
                 }
             });
 
-           
+
         }
 
         public static List<Patient> pList;
@@ -243,7 +253,7 @@ namespace Clinic
         }
 
 
-        private async void DoctorsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private  void DoctorsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Doc = (string)DoctorsComboBox.SelectedValue;
             string ln = Doc.Substring(0, doc.IndexOf(","));
@@ -344,7 +354,7 @@ namespace Clinic
 
         public DateTime CurrentDate;
 
-        Windows.Globalization.Calendar calendar = new Windows.Globalization.Calendar();
+       // Windows.Globalization.Calendar calendar = new Windows.Globalization.Calendar();
         List<WorkHours> whList = new List<WorkHours>();
         List<Appointment> appList = new List<Appointment>();
         List<Invitation> invList = new List<Invitation>();
@@ -352,7 +362,13 @@ namespace Clinic
         public WeekDay ReachedDayInWeeklyCalendar = null;
         public WeekDay StartDayInWeeklyCalendar = null;
 
+        //private ObservableCollection<NameValueItem3> _dList = new ObservableCollection<NameValueItem3>();
+        //public ObservableCollection<NameValueItem3> dList
+        //{
+        //    get { return this._dList; }
+        //}
 
+        Windows.Globalization.Calendar calendar = null;
         List<WeekDay> weekList = new List<WeekDay>(7);
         bool stay = false;
         public async void fillWeeklyCalendar()
@@ -361,14 +377,16 @@ namespace Clinic
             myGrid.Opacity = 0.5;
             appIncrease++;
 
-
-            whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
-            appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-            invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
-
+            //if (flip2 == 0)
+            //{
+                whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+                appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+                invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
+            //}
             if (SelectedWeek != 0 && flip2 == 0)
             {
                 stay = true;
+
             }
             if (!stay)
             {
@@ -379,12 +397,12 @@ namespace Clinic
             }
             //   whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == Connection.User.UserId).ToList();
 
-            Windows.Globalization.Calendar calendar = new Windows.Globalization.Calendar();
+           calendar = new Windows.Globalization.Calendar();
 
-
+            //ObservableCollection
             List<NameValueItem3> dList = new List<NameValueItem3>();
-
-           // List<WeekDay> weekList = new List<WeekDay>(7);
+            //dList.Clear();
+            // List<WeekDay> weekList = new List<WeekDay>(7);
 
             if (flip2 == 0)
             {
@@ -469,94 +487,94 @@ namespace Clinic
 
                 if (!stay)
                 {
-                noOfDaysInTheSelectedMonth = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month);
-                firstDay = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, 1).ToString("dddd");
+                    noOfDaysInTheSelectedMonth = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month);
+                    firstDay = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, 1).ToString("dddd");
 
-                switch (firstDay)
-                {
-                    case "Sunday": shift = 0;
-                        break;
-                    case "Monday": shift = 1;
-                        break;
-                    case "Tuesday": shift = 2;
-                        break;
-                    case "Wednesday": shift = 3;
-                        break;
-                    case "Thursday": shift = 4;
-                        break;
-                    case "Friday": shift = 5;
-                        break;
-                    case "Saturday": shift = 6;
-                        break;
-                }
-
-                int NumberOfPreviousMonthDays;
-                string previuosMonth;
-                string previousMonthYear;
-
-                if (shift != 0)
-                {
-
-                    if (DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month != 1)
+                    switch (firstDay)
                     {
-                        NumberOfPreviousMonthDays = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);
-                        previuosMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);//
-                        previousMonthYear = SelectedYear;
-                    }
-                    else
-                    {
-                        NumberOfPreviousMonthDays = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear) - 1, 12);
-                        previuosMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12);// CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);//
-                        previousMonthYear = (Convert.ToInt32(SelectedYear) - 1).ToString();
-
+                        case "Sunday": shift = 0;
+                            break;
+                        case "Monday": shift = 1;
+                            break;
+                        case "Tuesday": shift = 2;
+                            break;
+                        case "Wednesday": shift = 3;
+                            break;
+                        case "Thursday": shift = 4;
+                            break;
+                        case "Friday": shift = 5;
+                            break;
+                        case "Saturday": shift = 6;
+                            break;
                     }
 
-                    for (int i = shift - 1; i >= 0; i--)
-                    {
-                        weekList.Add(new WeekDay { Year = previousMonthYear, Month = previuosMonth, Day = NumberOfPreviousMonthDays - i });
-                    }
+                    int NumberOfPreviousMonthDays;
+                    string previuosMonth;
+                    string previousMonthYear;
 
-                    for (int i = 1; i <= 7 - shift; i++)
+                    if (shift != 0)
                     {
-                        weekList.Add(new WeekDay { Year = SelectedYear, Month = SelectedMonth, Day = i });
-                        if (i == 7 - shift)
+
+                        if (DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month != 1)
                         {
-                            ReachedDayInWeeklyCalendar = weekList.Last();
-                            StartDayInWeeklyCalendar = weekList.First();
+                            NumberOfPreviousMonthDays = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);
+                            previuosMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);//
+                            previousMonthYear = SelectedYear;
+                        }
+                        else
+                        {
+                            NumberOfPreviousMonthDays = DateTime.DaysInMonth(Convert.ToInt32(SelectedYear) - 1, 12);
+                            previuosMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12);// CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month - 1);//
+                            previousMonthYear = (Convert.ToInt32(SelectedYear) - 1).ToString();
 
                         }
-                    }
 
-                    LeftMonth = previuosMonth;
-                    LeftYear = previousMonthYear;
-
-                    RightMonth = SelectedMonth;
-                    //  MonthNameTextBlock3.Text =SelectedMonth  ;
-                    RightYear = selectedYear;
-                }
-                if (shift == 0)
-                {
-                    for (int i = 1; i <= 7; i++)
-                    {
-
-                        weekList.Add(new WeekDay { Year = SelectedYear, Month = SelectedMonth, Day = i });
-                        if (i == 7)
+                        for (int i = shift - 1; i >= 0; i--)
                         {
-                            ReachedDayInWeeklyCalendar = weekList.Last();
-                            StartDayInWeeklyCalendar = weekList.First();
+                            weekList.Add(new WeekDay { Year = previousMonthYear, Month = previuosMonth, Day = NumberOfPreviousMonthDays - i });
                         }
+
+                        for (int i = 1; i <= 7 - shift; i++)
+                        {
+                            weekList.Add(new WeekDay { Year = SelectedYear, Month = SelectedMonth, Day = i });
+                            if (i == 7 - shift)
+                            {
+                                ReachedDayInWeeklyCalendar = weekList.Last();
+                                StartDayInWeeklyCalendar = weekList.First();
+
+                            }
+                        }
+
+                        LeftMonth = previuosMonth;
+                        LeftYear = previousMonthYear;
+
+                        RightMonth = SelectedMonth;
+                        //  MonthNameTextBlock3.Text =SelectedMonth  ;
+                        RightYear = selectedYear;
+                    }
+                    if (shift == 0)
+                    {
+                        for (int i = 1; i <= 7; i++)
+                        {
+
+                            weekList.Add(new WeekDay { Year = SelectedYear, Month = SelectedMonth, Day = i });
+                            if (i == 7)
+                            {
+                                ReachedDayInWeeklyCalendar = weekList.Last();
+                                StartDayInWeeklyCalendar = weekList.First();
+                            }
+                        }
+
+                        LeftMonth = SelectedMonth;
+                        LeftYear = SelectedYear;
+
+                        RightMonth = String.Empty;
+                        RightYear = String.Empty;
                     }
 
-                    LeftMonth = SelectedMonth;
-                    LeftYear = SelectedYear;
 
-                    RightMonth = String.Empty;
-                    RightYear = String.Empty;
+
                 }
-
-             
-
-            }
             }
             else if (SelectedWeek == 2 || SelectedWeek == 3 || SelectedWeek == 4)
             {
@@ -965,27 +983,27 @@ namespace Clinic
 
         }
 
-      
 
-        private  void previousMonthButton2_Click(object sender, RoutedEventArgs e)
+
+        private void previousMonthButton2_Click(object sender, RoutedEventArgs e)
         {
-            
+
             flip2 = -1;
             backward = true;
-          
+
             fillWeeklyCalendar();
-           
+
         }
 
-        private  void nextMonthButton2_Click(object sender, RoutedEventArgs e)
+        private void nextMonthButton2_Click(object sender, RoutedEventArgs e)
         {
-          
+
             flip2 = 1;
             backward = false;
 
-          
+
             fillWeeklyCalendar();
-           
+
         }
 
 
@@ -1058,9 +1076,9 @@ namespace Clinic
 
                     myPoint = new Point(DipToPixel(point.X - bounds.X), DipToPixel(point.Y - bounds.Y));
 
-                    LightDismissAnimatedPopup.VerticalOffset = myPoint.Y - 200;
+                    LightDismissAnimatedPopup.VerticalOffset = myPoint.Y - 150;
 
-                    LightDismissAnimatedPopup.HorizontalOffset = myPoint.X - 300;
+                    LightDismissAnimatedPopup.HorizontalOffset = myPoint.X - 600;
 
                     List<NameValueItem3> nviList = new List<NameValueItem3>();
                     if (selectedNVI.Appointment1.UserID != null)
@@ -1076,12 +1094,12 @@ namespace Clinic
                     if (selectedNVI.Appointment3.UserID != null)
                     {
                         nviList.Add(new NameValueItem3() { Appointment3 = selectedNVI.Appointment3 });
-                           PopupHeight = PopupHeight + 100;
+                        PopupHeight = PopupHeight + 100;
                     }
                     if (selectedNVI.Appointment4.UserID != null)
                     {
                         nviList.Add(new NameValueItem3() { Appointment4 = selectedNVI.Appointment4 });
-                          PopupHeight = PopupHeight + 100;
+                        PopupHeight = PopupHeight + 100;
                     }
 
                     if (selectedNVI.Invitation1.FromUserId != null)
@@ -1098,12 +1116,12 @@ namespace Clinic
                     if (selectedNVI.Invitation3.FromUserId != null)
                     {
                         nviList.Add(new NameValueItem3() { Invitation3 = selectedNVI.Invitation3 });
-                          PopupHeight = PopupHeight + 100;
+                        PopupHeight = PopupHeight + 100;
                     }
                     if (selectedNVI.Invitation4.FromUserId != null)
                     {
                         nviList.Add(new NameValueItem3() { Invitation4 = selectedNVI.Invitation4 });
-                          PopupHeight = PopupHeight + 100;
+                        PopupHeight = PopupHeight + 100;
                     }
 
                     PopupGridView.ItemsSource = nviList;
@@ -1276,7 +1294,7 @@ namespace Clinic
 
             Invitation temp = await Invitation.getInvitation(SelectedNVI.Invitation1);
             Invitation.DeleteInvitation(temp);
-           // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+            // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
             //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
             //invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
 
@@ -1302,7 +1320,7 @@ namespace Clinic
             Invitation temp = await Invitation.getInvitation(SelectedNVI.Invitation2);
             Invitation.DeleteInvitation(temp);
 
-           // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+            // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
             //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
             //invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
             fillWeeklyCalendar();
@@ -1350,7 +1368,7 @@ namespace Clinic
             Invitation temp = await Invitation.getInvitation(SelectedNVI.Invitation4);
             Invitation.DeleteInvitation(temp);
 
-           // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+            // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
             //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
             //invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
             fillWeeklyCalendar();
@@ -1397,7 +1415,7 @@ namespace Clinic
 
                 //whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
                 //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-               // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
+                // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
                 fillWeeklyCalendar();
             }
         }
@@ -1418,8 +1436,8 @@ namespace Clinic
                 Invitation.DeleteInvitation(temp);
 
                 //whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
-               // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-               // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
+                // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+                // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
 
                 fillWeeklyCalendar();
             }
@@ -1442,7 +1460,7 @@ namespace Clinic
 
                 //whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
                 //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-               // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
+                // invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
 
                 fillWeeklyCalendar();
             }
@@ -1484,19 +1502,52 @@ namespace Clinic
             }
         }
 
-
+       // static int count = 0;
         private void TextBlock_GotFocus(object sender, RoutedEventArgs e) // 0-15
         {
             //Specify time
             //visibility
-
+           // if (count == 0) { 
             SelectedAppointment = SelectedNVI.Appointment1;
 
             if (SelectedNVI.Appointment1.UserID == null)
             {
                 Appointment app = new Appointment();
 
+                try
+                {
+                    app.PatientID = SelectedPatient.PatientID;
+                }
+                catch (NullReferenceException ee)
+                {
+                    new MessageDialog("please select a patient first").ShowAsync();
 
+                    OldSelectedNVI.EnableTextBlockes = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes2 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton2 = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes3 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton3 = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes4 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton4 = Visibility.Collapsed;
+
+                    BindAppointment = null;
+                    ShowAddAppointment = Visibility.Collapsed;
+                    DeleteAppointmentVisibility = Visibility.Collapsed;
+                    SelectedAppointment = null;
+                    return;
+                }
                 app.Complaint = SelectedNVI.Appointment1.Complaint;
                 app.Date = (new DateTime(Convert.ToInt32(SelectedNVI.weekDay.Year),
                                 DateTime.ParseExact(SelectedNVI.weekDay.Month, "MMMM", CultureInfo.CurrentCulture).Month,
@@ -1510,13 +1561,21 @@ namespace Clinic
 
                 BindAppointment = app;
                 // BindAppointment = SelectedNVI.Appointment1;
+              
             }
             else
             {
                 BindAppointment = SelectedNVI.Appointment1;
                 DeleteAppointmentVisibility = Visibility.Visible;
             }
+            
+           // new MessageDialog((++count).ToString()).ShowAsync();
             ShowAddAppointment = Visibility.Visible;
+
+
+            //count++;
+            
+            //}
         }
 
         public DelegateCommand Add_Appointment { get; private set; }
@@ -1574,8 +1633,8 @@ namespace Clinic
                         {
 
                             //String appointmentId = String.Empty;
-                           
-                                
+
+
                             //    var appointment = new Windows.ApplicationModel.Appointments.Appointment();
 
                             //    // StartTime
@@ -1592,29 +1651,29 @@ namespace Clinic
                             //    appointment.Details = BindAppointment.Complaint;
                             //    appointment.Duration = TimeSpan.FromMinutes(15);
 
-                                
+
                             //    Windows.UI.Xaml.Media.GeneralTransform buttonTransform = (this as FrameworkElement).TransformToVisual(null);
                             //    Windows.Foundation.Point point = buttonTransform.TransformPoint(new Windows.Foundation.Point());
                             //    var rect = new Windows.Foundation.Rect(point, new Windows.Foundation.Size((this as FrameworkElement).ActualWidth, (this as FrameworkElement).ActualHeight));
                             //    appointmentId = await Windows.ApplicationModel.Appointments.AppointmentManager.ShowAddAppointmentAsync(appointment, rect);
 
-                         
-                           // BindAppointment.AppoitmentID = appointmentId;
+
+                            // BindAppointment.AppoitmentID = appointmentId;
 
                             Appointment.InsertNewAppointment(BindAppointment);
-                             appointmentId = String.Empty;
-                           // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-                        
+                            appointmentId = String.Empty;
+                            // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+
                         }
                         else
                         {
                             // new MessageDialog(SelectedNVI.Appointment1.Complaint).ShowAsync();
 
-                          app.UpdateAppointment(BindAppointment);
-                          //  appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
-                        
+                            app.UpdateAppointment(BindAppointment);
+                            //  appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+
                         }
-                       // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+                        // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
                         //appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
                         ////invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
                     }
@@ -1631,8 +1690,8 @@ namespace Clinic
                         inv.FromUserId = Connection.User.UserId;
 
                         Invitation.InsertNewInvitation(inv);
-                       // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
-                       // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+                        // whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
+                        // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
                         //invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
 
                     }
@@ -1654,6 +1713,7 @@ namespace Clinic
                     return;
                 }
 
+               // count = 0;
             }, true);
 
             Cancel_Appointment = new DelegateCommand(async () =>
@@ -1687,7 +1747,7 @@ namespace Clinic
                 DeleteAppointmentVisibility = Visibility.Collapsed;
                 SelectedAppointment = null;
                 // fillWeeklyCalendar();
-
+               // count = 0;
             }, true);
             Delete_Appointment = new DelegateCommand(async () =>
             {
@@ -1701,11 +1761,11 @@ namespace Clinic
                 SelectedAppointment = null;
 
                 //whList = (await WorkHours.ReadListAsync()).Where(w => w.EmployeeId == SelectedDoctor.UserId).ToList();
-               // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
+                // appList = (await Appointment.ReadAppointmentsList()).Where(a => a.UserID == SelectedDoctor.UserId).ToList();
                 //invList = (await Invitation.ReadInvitationsList()).Where(i => i.ToUserId == SelectedDoctor.UserId).ToList();
 
                 fillWeeklyCalendar();
-
+               // count = 0;
             }, true);
 
             Cal_Appointment = new DelegateCommand(async () =>
@@ -1750,13 +1810,46 @@ namespace Clinic
 
         }
 
-        private void app2TextBox_GotFocus(object sender, RoutedEventArgs e)
+        private  void app2TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             SelectedAppointment = SelectedNVI.Appointment2;
             if (SelectedNVI.Appointment2.UserID == null)
             {
                 Appointment app = new Appointment();
+                try
+                {
+                    app.PatientID = SelectedPatient.PatientID;
+                }
+                catch(NullReferenceException ee){
+                     new MessageDialog("please select a patient first").ShowAsync();
+                     OldSelectedNVI.EnableTextBlockes = Visibility.Visible;
+                     OldSelectedNVI.EnableTextBoxes = Visibility.Collapsed;
+                     OldSelectedNVI.EnableButton = Visibility.Collapsed;
+                     OldSelectedNVI.EnableDelButton = Visibility.Collapsed;
 
+                     OldSelectedNVI.EnableTextBlockes2 = Visibility.Visible;
+                     OldSelectedNVI.EnableTextBoxes2 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableButton2 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableDelButton2 = Visibility.Collapsed;
+
+                     OldSelectedNVI.EnableTextBlockes3 = Visibility.Visible;
+                     OldSelectedNVI.EnableTextBoxes3 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableButton3 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableDelButton3 = Visibility.Collapsed;
+
+
+
+                     OldSelectedNVI.EnableTextBlockes4 = Visibility.Visible;
+                     OldSelectedNVI.EnableTextBoxes4 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableButton4 = Visibility.Collapsed;
+                     OldSelectedNVI.EnableDelButton4 = Visibility.Collapsed;
+
+                     BindAppointment = null;
+                     ShowAddAppointment = Visibility.Collapsed;
+                     DeleteAppointmentVisibility = Visibility.Collapsed;
+                     SelectedAppointment = null;
+                     return;
+                }
 
                 app.Complaint = SelectedNVI.Appointment2.Complaint;
                 app.Date = (new DateTime(Convert.ToInt32(SelectedNVI.weekDay.Year),
@@ -1776,6 +1869,7 @@ namespace Clinic
                 BindAppointment = SelectedNVI.Appointment2;
                 DeleteAppointmentVisibility = Visibility.Visible;
             }
+           // new MessageDialog((++count).ToString()).ShowAsync();
             ShowAddAppointment = Visibility.Visible;
         }
 
@@ -1788,7 +1882,41 @@ namespace Clinic
 
                 Appointment app = new Appointment();
 
+                try
+                {
+                    app.PatientID = SelectedPatient.PatientID;
+                }
+                catch (NullReferenceException ee)
+                {
+                    new MessageDialog("please select a patient first").ShowAsync();
+                    OldSelectedNVI.EnableTextBlockes = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton = Visibility.Collapsed;
 
+                    OldSelectedNVI.EnableTextBlockes2 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton2 = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes3 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton3 = Visibility.Collapsed;
+
+
+
+                    OldSelectedNVI.EnableTextBlockes4 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton4 = Visibility.Collapsed;
+
+                    BindAppointment = null;
+                    ShowAddAppointment = Visibility.Collapsed;
+                    DeleteAppointmentVisibility = Visibility.Collapsed;
+                    SelectedAppointment = null;
+                    return;
+                }
                 app.Complaint = SelectedNVI.Appointment3.Complaint;
                 app.Date = (new DateTime(Convert.ToInt32(SelectedNVI.weekDay.Year),
                                 DateTime.ParseExact(SelectedNVI.weekDay.Month, "MMMM", CultureInfo.CurrentCulture).Month,
@@ -1807,6 +1935,7 @@ namespace Clinic
                 BindAppointment = SelectedNVI.Appointment3;
                 DeleteAppointmentVisibility = Visibility.Visible;
             }
+           // new MessageDialog((++count).ToString()).ShowAsync();
             ShowAddAppointment = Visibility.Visible;
         }
 
@@ -1817,6 +1946,42 @@ namespace Clinic
             if (SelectedNVI.Appointment4.UserID == null)
             {
                 Appointment app = new Appointment();
+
+                try
+                {
+                    app.PatientID = SelectedPatient.PatientID;
+                }
+                catch (NullReferenceException ee)
+                {
+                    new MessageDialog("please select a patient first").ShowAsync();
+                    OldSelectedNVI.EnableTextBlockes = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes2 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton2 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton2 = Visibility.Collapsed;
+
+                    OldSelectedNVI.EnableTextBlockes3 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton3 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton3 = Visibility.Collapsed;
+
+
+
+                    OldSelectedNVI.EnableTextBlockes4 = Visibility.Visible;
+                    OldSelectedNVI.EnableTextBoxes4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableButton4 = Visibility.Collapsed;
+                    OldSelectedNVI.EnableDelButton4 = Visibility.Collapsed;
+
+                    BindAppointment = null;
+                    ShowAddAppointment = Visibility.Collapsed;
+                    DeleteAppointmentVisibility = Visibility.Collapsed;
+                    SelectedAppointment = null;
+                    return;
+                }
                 app.Complaint = SelectedNVI.Appointment4.Complaint;
                 app.Date = (new DateTime(Convert.ToInt32(SelectedNVI.weekDay.Year),
                                 DateTime.ParseExact(SelectedNVI.weekDay.Month, "MMMM", CultureInfo.CurrentCulture).Month,
@@ -1835,10 +2000,11 @@ namespace Clinic
                 BindAppointment = SelectedNVI.Appointment4;
                 DeleteAppointmentVisibility = Visibility.Visible;
             }
+           // new MessageDialog((++count).ToString()).ShowAsync();
             ShowAddAppointment = Visibility.Visible;
         }
 
-        public static Patient getPatient(int id)
+        public static Patient getPatient(string id)
         {
             Patient pp = pList.Where(p => p.PatientID.Equals(id)).ToList().First();
             return pp;
@@ -1865,13 +2031,13 @@ namespace Clinic
 
         private static bool changed = false;
 
-        public static bool Changed 
+        public static bool Changed
         {
             get { return changed; }
             set
             {
-               changed = value;
-               //OnPropertyChanged("PopupHeight");
+                changed = value;
+                //OnPropertyChanged("PopupHeight");
 
             }
         }
@@ -1904,8 +2070,8 @@ namespace Clinic
         {
             //this.Frame.Navigate(typeof(MainPage));
             this.Frame.Navigate(typeof(NewPatient), (object)SelectedNVI.Appointment1.PatientID);
-                //(typeof(NewPatient(SelectedNVI.Appointment1.PatientID)));
-          //  this.Frame.Navigate()
+            //(typeof(NewPatient(SelectedNVI.Appointment1.PatientID)));
+            //  this.Frame.Navigate()
         }
 
         private void GoToPatient2(object sender, RoutedEventArgs e)
@@ -1963,7 +2129,7 @@ namespace Clinic
             //  this.Frame.Navigate()
         }
 
-       
+
 
 
     }

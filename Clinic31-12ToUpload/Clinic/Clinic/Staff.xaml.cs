@@ -771,7 +771,7 @@ namespace Clinic
 
                 TimeSpan ts1 = new TimeSpan(7, 0, 0);
                 TimeSpan ts2 = new TimeSpan(15, 0, 0);
-                wh = new WorkHours() { EmployeeId = empList.ElementAt(SelectedString.i / 9).UserId, From = SelectedString.date + ts1, To = SelectedString.date + ts2, OnCallOnly = false, BreakTimeFrom = new TimeSpan(8 + count, 0, 0), BreakTimeTo = new TimeSpan(8 + count + 1, 0, 0), TimeOffReason = String.Empty };
+                wh = new WorkHours() { EmployeeId = empList.ElementAt(SelectedString.i / 9).UserId, From = SelectedString.date + ts1, To = SelectedString.date + ts2, OnCallOnly = false, BreakTimeFrom = new TimeSpan(ts1.Hours + count, 0, 0), BreakTimeTo = new TimeSpan(ts2.Hours + count + 1, 0, 0), TimeOffReason = String.Empty };
 
                 //Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);
                 //myGrid.Opacity = 0.5;
@@ -1070,11 +1070,11 @@ namespace Clinic
                     WorkHours wh = new WorkHours();
                     //wh = selectedStaffItem.workHours;
                     wh.From = selectedStaffItem.date +  si.workHours.From.TimeOfDay;
-                    wh.To = selectedStaffItem.date + si.workHours.To.TimeOfDay;
+                    wh.To = (si.workHours.From.TimeOfDay.Hours != 23) ? selectedStaffItem.date +si.workHours.To.TimeOfDay : selectedStaffItem.date.AddDays(1) + si.workHours.To.TimeOfDay;
                     wh.EmployeeId = empList.ElementAt(selectedStaffItem.i / 9).UserId;
                     wh.OnCallOnly = false;
-                    wh.BreakTimeFrom = new TimeSpan(8 + empList.Count, 0, 0);
-                    wh.BreakTimeTo = new TimeSpan(8 + empList.Count + 1, 0, 0);
+                    wh.BreakTimeFrom = new TimeSpan(si.workHours.From.TimeOfDay.Hours + empList.Count, 0, 0);
+                    wh.BreakTimeTo = new TimeSpan(si.workHours.From.TimeOfDay.Hours + empList.Count + 1, 0, 0);
                     wh.TimeOffReason = String.Empty;
 
                     //Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 2);

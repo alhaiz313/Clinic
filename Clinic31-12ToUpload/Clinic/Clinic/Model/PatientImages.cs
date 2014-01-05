@@ -12,7 +12,7 @@ namespace Clinic.Model
     class PatientImages:ViewModel
     {
           [DataMember(Name = "id")]
-        public int Id
+        public string Id
         {
             get;
             set;

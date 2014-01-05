@@ -152,7 +152,6 @@
     <Compile Include="Model\Perscription.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\WorkHours.cs" />
-    <Compile Include="myBehavior\MultiSelectBehavior.cs" />
     <Compile Include="MyProfile.xaml.cs">
       <DependentUpon>MyProfile.xaml</DependentUpon>
     </Compile>
@@ -186,10 +185,12 @@
     </AppxManifest>
     <Content Include="Assets\1385591353_male.png" />
     <Content Include="Assets\1385591356_female.png" />
+    <Content Include="Assets\414-180.jpg" />
     <Content Include="Assets\Add-icon.png" />
     <Content Include="Assets\Administrator-icon.png" />
     <Content Include="Assets\Appointment-Book.png" />
     <Content Include="Assets\Appointment.png" />
+    <Content Include="Assets\BadgeLogo.scale-180.jpg" />
     <Content Include="Assets\BadgeLogo.scale-180.png" />
     <Content Include="Assets\Basic-Document-icon.png" />
     <Content Include="Assets\Button-Next-icon.png" />
@@ -208,6 +209,11 @@
     </Content>
     <Content Include="Assets\Folders-OS-User-No-Frame-Metro-icon2.png" />
     <Content Include="Assets\Light-Purple-Floral-Backgrounds.jpg" />
+    <Content Include="Assets\Logo.scale-100.jpg" />
+    <Content Include="Assets\Medicine-Doctor-suitecase-icon.jpg" />
+    <Content Include="Assets\Medicine-Doctor-suitecase-icon350x150.jpg" />
+    <Content Include="Assets\Medicine-Doctor-suitecase-icon70.jpg" />
+    <Content Include="Assets\Medicine-Doctor-suitecase-iconx310.jpg" />
     <Content Include="Assets\Office-Girl-icon.png" />
     <Content Include="Assets\Office-Stuff-Planner-icon2.png" />
     <Content Include="Assets\Patients-Calendar.png" />
@@ -218,12 +224,18 @@
     <Content Include="Assets\Profile-Monthly.png" />
     <Content Include="Assets\Profile-Weekly.png" />
     <Content Include="Assets\Sections-of-Website-About-icon2.png" />
+    <Content Include="Assets\SmallLogo.scale-100.jpg" />
+    <Content Include="Assets\SplashScreen.scale-100.jpg" />
     <Content Include="Assets\Sport-Activities-Trekking-icon2.png" />
+    <Content Include="Assets\Square310x310Logo.scale-100.jpg" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Square70x70Logo.scale-100.jpg" />
     <Content Include="Assets\Square70x70Logo.scale-100.png" />
     <Content Include="Assets\staff-All.png" />
     <Content Include="Assets\Staff-Monthly.png" />
+    <Content Include="Assets\StoreLogo.scale-100.jpg" />
     <Content Include="Assets\Users-Nurse-icon2.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.jpg" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Screenshots\Appointment-Book.png" />
     <Content Include="Screenshots\Appointment.png" />

@@ -13,7 +13,7 @@ namespace Clinic.Model
     public class Drug:ViewModel
     {
         [DataMember(Name="drugId")]
-        public int DrugId{
+        public string DrugId{
             get;
             set;
         }

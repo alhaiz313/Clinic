@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Clinic
 {
@@ -17,11 +18,23 @@ namespace Clinic
         //  "https://zainabalhaidary5.azure-mobile.net/",
         //  "CiywNDvdJVFfrdkOZUXcpAItqDEyAk32");
 
+        //https://zainabalhaidary7.azure-mobile.net/
+        //https://zainabalhaidary7.azure-mobile.net/
+        // TXiJTMnoUsCQARnwwJXDHOOqdvvULQ59
+
         public static MobileServiceClient mobileService; //= new MobileServiceClient(applicationURL,applicationKey);
 
         public Connection(string a, string b)
         {
-            mobileService = new MobileServiceClient(a, b);
+            //try
+            //{
+                mobileService = new MobileServiceClient(a, b);
+            //}
+            //catch
+            //{
+            //    new MessageDialog("Connection failed, please check your credentials.").ShowAsync();
+            //    //return;
+            //}
             key = b;
             Url = a;
         }

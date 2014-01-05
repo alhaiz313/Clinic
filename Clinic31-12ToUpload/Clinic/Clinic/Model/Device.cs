@@ -14,7 +14,7 @@ namespace Clinic.Model
     public class Device
     {
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "userId")]
         public string UserId { get; set; }

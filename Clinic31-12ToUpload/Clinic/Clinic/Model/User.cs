@@ -16,11 +16,11 @@ namespace Clinic.Model
     public class User : ViewModel
     {
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
 
-        //[DataMember(Name = "isadmin")]
-        //public bool isAdmin { get; set; }
+        [DataMember(Name = "isadmin")]
+        public bool isAdmin { get; set; }
 
         [DataMember(Name = "userId")]
         public string UserId { get; set; }

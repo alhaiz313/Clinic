@@ -61,11 +61,19 @@ namespace Clinic
 
                 try
                 {
-                    file = await folder.CreateFileAsync(name);
-                   
+                    
 
-                    Connection c = new Connection(Ci.ApplicationURL, Ci.ApplicationKey);
+                    try
+                    {
+                        Connection c = new Connection(Ci.ApplicationURL, Ci.ApplicationKey);
+                    }
+                    catch
+                    {
+                        new MessageDialog("Connection failed, please check your credentials.").ShowAsync();
+                        return;
+                    }
                    // string text = Ci.ApplicationURL + " " + Ci.ApplicationKey;
+                    file = await folder.CreateFileAsync(name);
                     string t = Encrypt(Ci.ApplicationKey, "myKey");
                     string tt = Encrypt(Ci.ApplicationURL, "myKey");
                     string text = tt + " " + t;
@@ -96,8 +104,8 @@ namespace Clinic
         
         private async Task LoginAsync()
         {
-           
 
+         
 
                 try
                 {
@@ -145,6 +153,7 @@ namespace Clinic
 
                     var authClient = new LiveAuthClient("https://zainabalhaidary5.azure-mobile.net/");
                     LiveLoginResult authResult = await authClient.LoginAsync(new List<string>() { "wl.basic", "wl.emails", "wl.offline_access", "wl.contacts_create", "wl.calendars"});//"wl.work_profile", "wl.postal_addresses", "wl.phone_numbers", "wl.events_create","wl.contacts_calendars"
+                  
                     if (authResult.Status == LiveConnectSessionStatus.Connected)
                     {
                         SignedIn = true;
@@ -166,6 +175,31 @@ namespace Clinic
                     LoadProfile();
 
                 }
+
+                //if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                //{
+                //    authClient = new LiveAuthClient();
+
+                //    // MobileServiceUser msu = await Connection.MobileService.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+
+
+                //    LiveLoginResult authResult = await authClient.LoginAsync(new List<string>() { "wl.basic" });
+                //    if (authResult.Status == LiveConnectSessionStatus.Connected)
+                //    {
+                //        SignedIn = true;
+                //        Connection.Session = authResult.Session;
+                //    }
+                //    else
+                //    {
+                //        MessageDialog md = new MessageDialog("The program is exiting as you have not accepted the terms");
+                //        await md.ShowAsync();
+                //        App.Current.Exit();
+                //    }
+
+                //    LoadProfile();
+
+                //}
+
 
             
             return;
@@ -196,7 +230,7 @@ namespace Clinic
 
                 liveOpResult = await client.GetAsync("me/picture");
                 dynamic dynResult2 = liveOpResult.Result;
-                //dynResult2.location to get the profile photo
+                var image = dynResult2.location;// to get the profile photo
 
                 List<User> usersList = new List<User>();
                 User = Connection.MobileService.GetTable<User>();
@@ -217,7 +251,7 @@ namespace Clinic
                     {
                         await User.InsertAsync(new User
                         {
-                            //isAdmin  = false,
+                           // isAdmin  = false,
                             UserId = id,
                             LiveSDKID = LiveSDKId,
                             //UserId = App.MobileService.CurrentUser.UserId,
@@ -225,7 +259,8 @@ namespace Clinic
                             ImageUri = dynResult2.location,
                             FName = first_name,
                             LName = last_name,
-                            Email = email
+                            Email = email,
+                            Type = String.Empty
                         });
 
                         usersList = await User.Where(p => p.UserId == id).ToListAsync();

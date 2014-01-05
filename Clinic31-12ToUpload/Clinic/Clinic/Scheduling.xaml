@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Clinic"
     xmlns:common="using:Clinic.Common"
+   
     xmlns:xc="using:WinRTXamlToolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -233,7 +234,7 @@
 
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
+                            
                             <StackPanel Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
@@ -353,15 +354,6 @@
 
 
 
-                            <!--<TextBlock Grid.Row="1" Grid.Column="1" x:Name="Sunday2"  FontSize="8" Foreground="Gray" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1"  Grid.Column="2" x:Name="Monday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock  Grid.Row="1" Grid.Column="3" x:Name="Tuesday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock  Grid.Row="1" Grid.Column="4" x:Name="Wednesday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock  Grid.Row="1" Grid.Column="5" x:Name="Thursday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock  Grid.Row="1" Grid.Column="6" x:Name="Friday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>
-                            <TextBlock  Grid.Row="1" Grid.Column="7" x:Name="Saturday2" FontSize="8" Foreground="Gray" HorizontalAlignment="Center"/>-->
-
-
                         </Grid>
 
                         <local:SpecificGridView
@@ -378,18 +370,7 @@
                                 ScrollViewer.VerticalScrollMode="Enabled" Grid.ColumnSpan="3">
 
 
-                            <!--SelectionMode="Multiple"-->
-                            <!--<i:Interaction.Behaviors>
-                                    <custom:MultiSelectBehavior SelectedItems="{Binding SelectedItems, Mode=TwoWay}">
-                                    </custom:MultiSelectBehavior>
-                                </i:Interaction.Behaviors>-->
-
-
-
-
-
-
-
+                       
                             <local:SpecificGridView.Resources>
 
                                 <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
@@ -440,13 +421,10 @@
                                     </Setter>
                                 </Style>
                             </local:SpecificGridView.Resources>
-                            <!--</GridView.Resources>-->
-
-
-
+                        
 
                             <local:SpecificGridView.ItemContainerStyle>
-                                <!--<GridView.ItemContainerStyle>-->
+                             
 
                                 <StaticResource ResourceKey="GridViewItemStyle1"/>
                             </local:SpecificGridView.ItemContainerStyle>
@@ -460,6 +438,8 @@
                                ItemWidth="45"
                                Orientation="Horizontal"
                                 MaximumRowsOrColumns="22"/>
+
+                                 
 
                                 </ItemsPanelTemplate>
                             </local:SpecificGridView.ItemsPanel>
@@ -510,13 +490,7 @@
                                                     <RowDefinition Height="20"/>
                                                 </Grid.RowDefinitions>
 
-                                                <!--<Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>-->
-
-
+                                           
                                                 <Grid Grid.Row="0"  >
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
@@ -527,10 +501,8 @@
 
                                                     <TextBlock Text="{Binding Appointment1.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top" Grid.Column="0" Foreground="#2D2D2D" Visibility="{Binding EnableTextBlockes }"  FontSize="10" Width="{Binding  Invitation1.Complaint , Converter={StaticResource AppWidth}}"/>
 
-                                                    <!--<TextBox Text="{Binding Appointment1.Complaint ,Mode=TwoWay}" VerticalAlignment="Top"  Foreground="#2D2D2D" Grid.Column="0" Width="{Binding  Invitation1.Complaint , Converter={StaticResource AppWidth}}"  x:Name="app1TextBox" Visibility="{ Binding EnableTextBoxes}" GotFocus="TextBlock_GotFocus" >--><!--KeyDown="app1TextBox_KeyDown"-->
                                                     <TextBox Text="{Binding Appointment1.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top"  Foreground="#2D2D2D" Grid.Column="0" Width="{Binding  Invitation1.Complaint , Converter={StaticResource AppWidth}}"  x:Name="app1TextBox" Visibility="{ Binding EnableTextBoxes}" GotFocus="TextBlock_GotFocus" >
-                                                    <!--KeyDown="app1TextBox_KeyDown"-->
-
+                                                    
                                                     <TextBox.Resources>
                                                             <Style x:Key="TextBoxStyle1" TargetType="TextBox">
                                                                 <Setter Property="MinWidth" Value="0"/>
@@ -584,8 +556,7 @@
                                                     <TextBlock Text="{Binding Appointment2.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Foreground="#2D2D2D" Visibility="{Binding EnableTextBlockes2 }" FontSize="10" Width="{Binding  Invitation2.Complaint , Converter={StaticResource AppWidth}}"/>
 
 
-                                                    <!--<TextBox Text="{Binding Appointment2.Complaint,Mode=TwoWay}" VerticalAlignment="Top" Foreground="#2D2D2D"  Grid.Column="0" x:Name="app2TextBox" Visibility="{ Binding EnableTextBoxes2}"   Width="{Binding  Invitation2.Complaint , Converter={StaticResource AppWidth}}" GotFocus="app2TextBox_GotFocus">-->
-                                                    <TextBox Text="{Binding Appointment2.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top" Foreground="#2D2D2D"  Grid.Column="0" x:Name="app2TextBox" Visibility="{ Binding EnableTextBoxes2}"   Width="{Binding  Invitation2.Complaint , Converter={StaticResource AppWidth}}" GotFocus="app2TextBox_GotFocus">
+                                                     <TextBox Text="{Binding Appointment2.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top" Foreground="#2D2D2D"  Grid.Column="0" x:Name="app2TextBox" Visibility="{ Binding EnableTextBoxes2}"   Width="{Binding  Invitation2.Complaint , Converter={StaticResource AppWidth}}" GotFocus="app2TextBox_GotFocus">
 
                                                         <TextBox.Resources>
                                                             <Style x:Key="TextBoxStyle1" TargetType="TextBox">
@@ -611,8 +582,7 @@
                                                     </TextBox>
 
                                                     <TextBlock Text="{Binding Invitation2.PatientID,Converter={StaticResource Underscore4}}" VerticalAlignment="Top"   Grid.Column="1" Foreground="Blue"  FontSize="10"/> 
-                                                    <!--<Button  Grid.Column="2" Width="{Binding  Invitation2.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="#2D2D2D" Visibility="{Binding EnableButton2 }" Click="Button_Click_1"/>-->
-
+                                                   
                                                     <Button    Grid.Column="2" Width="{Binding  Invitation2.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="White"  Visibility="{Binding EnableButton2 }" Click="Button_Click_1"  Padding="0,0,0,0" FontSize="8" BorderThickness="0" FontWeight="Bold">
                                                         <StackPanel Height="15" Width="15" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                             <Image Source="Assets/Add-icon.png"  ></Image>
@@ -666,10 +636,7 @@
                                                     </TextBox>
 
                                                     <TextBlock Text="{Binding Invitation3.PatientID,Converter={StaticResource Underscore4} }" VerticalAlignment="Top"   Grid.Column="1" Foreground="Blue" FontSize="10" />
-                                                    <!--<Button   Grid.Column="2" Width="{Binding  Invitation3.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="#2D2D2D" Visibility="{Binding EnableButton3 }" Click="Button_Click_2"/>-->
-
-
-
+                                                  
                                                     <Button    Grid.Column="2" Width="{Binding  Invitation3.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="White"  Visibility="{Binding EnableButton3 }" Click="Button_Click_2"  Padding="0,0,0,0" FontSize="8" BorderThickness="0" FontWeight="Bold">
                                                         <StackPanel Height="15" Width="15" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                             <Image Source="Assets/Add-icon.png"  ></Image>
@@ -725,8 +692,7 @@
                                                 </TextBox>
 
                                                     <TextBlock Text="{Binding Invitation4.PatientID,Converter={StaticResource Underscore4} }" VerticalAlignment="Top"   Grid.Column="1"  Foreground="Blue" FontSize="10" />
-                                                    <!--<Button  VerticalAlignment="Top"  Grid.Column="2" Width="{Binding  Invitation4.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="#2D2D2D" Visibility="{Binding EnableButton4 }" Click="Button_Click_3"/>-->
-
+                                                
                                                     <Button    Grid.Column="2" Width="{Binding  Invitation4.Complaint , Converter={StaticResource InvitationWidth}}"  Foreground="White"  Visibility="{Binding EnableButton4 }" Click="Button_Click_3"  Padding="0,0,0,0" FontSize="8" BorderThickness="0" FontWeight="Bold">
                                                         <StackPanel Height="15" Width="15" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                             <Image Source="Assets/Add-icon.png"  ></Image>
@@ -1224,8 +1190,7 @@
             </Grid>
 
             <Grid Background="Transparent" x:Name="myGrid2" Grid.Row="1"
-                  Visibility="{Binding ShowAddAppointment}"
-        >
+                  Visibility="{Binding ShowAddAppointment}">
 
                 <ContentPresenter   x:Name="AddAppointmentView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddAppointment}" Grid.Row="1" 
                  >

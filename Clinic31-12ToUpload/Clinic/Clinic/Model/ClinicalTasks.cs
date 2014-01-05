@@ -11,7 +11,7 @@ namespace Clinic.Model
     class ClinicalTasks:ViewModel
     {
         [DataMember(Name = "id")]
-        public int Id
+        public string Id
         {
             get;
             set;

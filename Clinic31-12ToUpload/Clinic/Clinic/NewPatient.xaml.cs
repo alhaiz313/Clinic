@@ -105,6 +105,9 @@ namespace Clinic
                 if (String.Equals(e.PropertyName, "RefreshFlag")) //added new patient
                 {
                     fillGridView();
+                    patientViewModel.createPatient();
+                    patientViewModel.createPatientHistory();
+                    patientViewModel.createPatientDocument();
                 }
             };
 
@@ -163,7 +166,7 @@ namespace Clinic
             userList = await User.ReadUsersList();
             if (e.Parameter != null)
             {
-                int patientID = (int)e.Parameter;
+                string patientID = (string)e.Parameter;
 
                 //if (!(patientID).Equals(0))
                 //{
@@ -352,9 +355,9 @@ namespace Clinic
                 {
                     pee = new PatientEncounter();
                 }
-              
 
-                dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = temp, Color = ((temp.PatientId != 0) ? "Pink" : (pee.AppointmentId!=null)? "LightBlue": (app.PatientID != 0 ?"#BFB5DF":"White")), appointment = app, patientEncounter = pee,Width1 = ((temp.PatientId != 0 )|| (temp.PatientId == 0 && app.PatientID == 0) ? 98 : 0), Width2 = ((app.PatientID != 0 && temp.PatientId == 0 && pee.AppointmentId == null) ? 98 : 0) ,Width3 = (pee.AppointmentId!=null?98:0)});
+
+                dList.Add(new NameValueItem2 { Value = i.ToString(), date = new DateTime(Convert.ToInt32(SelectedYear), DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.CurrentCulture).Month, i), pHistory = temp, Color = ((!String.IsNullOrEmpty(temp.PatientId)) ? "Pink" : (pee.AppointmentId != null) ? "LightBlue" : (!String.IsNullOrEmpty(app.PatientID) ? "#BFB5DF" : "White")), appointment = app, patientEncounter = pee, Width1 = ((!String.IsNullOrEmpty(temp.PatientId)) || (String.IsNullOrEmpty(temp.PatientId) && String.IsNullOrEmpty(app.PatientID)) ? 98 : 0), Width2 = (!String.IsNullOrEmpty((app.PatientID)) && String.IsNullOrEmpty(temp.PatientId ) && pee.AppointmentId == null ? 98 : 0), Width3 = (pee.AppointmentId != null ? 98 : 0) });
                     
                
             }
@@ -419,11 +422,11 @@ namespace Clinic
 
                 LightDismissAnimatedPopup.VerticalOffset = myPoint.Y - 400;
 
-                LightDismissAnimatedPopup.HorizontalOffset = myPoint.X - 700;
+                LightDismissAnimatedPopup.HorizontalOffset = myPoint.X - 800;
 
 
                 
-                if (((NameValueItem2)e.ClickedItem).pHistory.PatientId != 0)
+                if (!String.IsNullOrEmpty(((NameValueItem2)e.ClickedItem).pHistory.PatientId ))
                 {
                     LightDismissAnimatedPopupTextBlock.Text = "Cholestrol Level is " + ((NameValueItem2)e.ClickedItem).pHistory.Cholestrol;
                     LightDismissAnimatedPopupTextBlock3.Text = "Blood Pressure Level is " + ((NameValueItem2)e.ClickedItem).pHistory.BloodPressure;
@@ -461,7 +464,7 @@ namespace Clinic
                     }
 
                 }
-                else if (((NameValueItem2)e.ClickedItem).appointment.PatientID != 0 )
+                else if (!String.IsNullOrEmpty(((NameValueItem2)e.ClickedItem).appointment.PatientID ) )
                 {  countClick++;
                     if(countClick==1){
                     
@@ -474,7 +477,7 @@ namespace Clinic
                     if (!LightDismissAnimatedPopup.IsOpen) { LightDismissAnimatedPopup.IsOpen = true; }
                     }
                    else { // countClick ==2
-                        if(SelectedNVI.appointment.PatientID!=0 && SelectedNVI.patientEncounter.AppointmentId ==null){
+                        if(!String.IsNullOrEmpty(SelectedNVI.appointment.PatientID) && SelectedNVI.patientEncounter.AppointmentId ==null){
                             PatientEncounter pe = new PatientEncounter();
                             pe.AppointmentId = SelectedNVI.appointment.Id;
                             BindEncounter = pe;
@@ -526,8 +529,13 @@ namespace Clinic
            //this.VerticalPatientsView.SelectionChanged += VerticalPatientsView_SelectionChanged;
            // this.VerticalPatientsView.ItemClick+= ItemView_ItemClick;
            // this.VerticalPatientsView.RightTapped += VerticalPatientsView_RightTapped;
+            try
+            {
+                SelectedPatient = pList.First();
+            }
+            catch{
+            }
 
-            SelectedPatient = pList.First();
         }
        
 
@@ -808,7 +816,7 @@ namespace Clinic
                     await mm.ShowAsync();
                     return;
                 }
-            if (BindEncounter.Id == 0)
+            if (BindEncounter.Id==0)
             {
 
                 PatientEncounter.InsertNewPatientEncounter(BindEncounter);
@@ -852,7 +860,7 @@ namespace Clinic
             User user =userList.Where(p => p.UserId.Equals(id)).ToList().First();
             return user;
         }
-        public static Patient getPatient(int id)
+        public static Patient getPatient(string id)
         {
             Patient pp = pList.Where(p => p.PatientID.Equals(id)).ToList().First();
             return pp;
