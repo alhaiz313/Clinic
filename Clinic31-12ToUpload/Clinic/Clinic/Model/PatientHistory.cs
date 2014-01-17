@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Clinic.Model
 {
@@ -131,6 +134,48 @@ namespace Clinic.Model
             get { return info3; }
             set { SetValue(ref info3, value); }
         }
-        
+
+
+
+        private static IMobileServiceTable<PatientHistory> patientHistory = Connection.MobileService.GetTable<PatientHistory>();
+        public static async void InsertNewPatientHistory(PatientHistory ph)
+        {
+            try
+            {
+                await patientHistory.InsertAsync(ph);
+            }
+            catch (MobileServiceInvalidOperationException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+        }
+
+
+        public static async Task<List<PatientHistory>> ReadPatientHistoryList()
+        {
+
+            List<PatientHistory> phList = await patientHistory.ToListAsync();
+            return phList;
+
+        }
+
+        public static async void DeletePatientHistory(PatientHistory ph)
+        {
+            try
+            {
+                await patientHistory.DeleteAsync(ph);
+            }
+            catch
+            {
+                new MessageDialog("Deleting error").ShowAsync();
+            }
+        }
+
+        public static async void UpdatePatientHistory(PatientHistory ph)
+        {
+            await patientHistory.UpdateAsync(ph);
+        }
+ 
     }
 }

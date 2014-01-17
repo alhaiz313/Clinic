@@ -130,8 +130,8 @@ namespace Clinic.Common
         {
             // Use the navigation frame to return to the previous page
             if (this.Frame != null && this.Frame.CanGoBack) this.Frame.GoBack();
-           // if (this.Frame != null) this.Frame.GoBack();
-          //  this.Frame.Navigate(typeof(MainPage));
+            // if (this.Frame != null) this.Frame.GoBack();
+            //  this.Frame.Navigate(typeof(MainPage));
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace Clinic.Common
 
             // Set the initial visual state of the control
             VisualStateManager.GoToState(control, DetermineVisualState(), false);
-          
+
         }
 
         private void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -296,7 +296,7 @@ namespace Clinic.Common
         /// <seealso cref="InvalidateVisualState"/>
         protected virtual string DetermineVisualState()
         {
-           // return viewState.ToString();
+            // return viewState.ToString();
             string visualState = "FullScreenLandscape";
             var windowWidth = Window.Current.Bounds.Width;
             var windowHeight = Window.Current.Bounds.Height;

@@ -877,4 +877,38 @@ namespace Clinic.Common
 
     }
 
+    //NotCheckedConverter
+    public class NotCheckedConverter : IValueConverter
+    {
+        public NotCheckedConverter()
+        {
+            VisibleValue = true;
+        }
+
+        public bool VisibleValue { get; set; }
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null || value.GetType() != typeof(System.Boolean))
+            {
+                return Visibility.Collapsed;
+            }
+            bool interpreted = System.Convert.ToBoolean(value);
+            return interpreted == VisibleValue ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            //if (value == null || value.GetType() != typeof(Visibility))
+            //{
+            //    return !VisibleValue;
+            //}
+
+            //Visibility visibility = (Visibility)value;
+
+            //return visibility == Visibility.Visible ? VisibleValue : !VisibleValue;
+            throw new NotImplementedException();
+        }
+    }
+
 }

@@ -137,7 +137,7 @@ namespace Clinic.Model
             return p;
         }
 
-        public static async void DeletePatient(Patient p)
+        public static async Task DeletePatient(Patient p)
         {
             await patient.DeleteAsync(p);
         }

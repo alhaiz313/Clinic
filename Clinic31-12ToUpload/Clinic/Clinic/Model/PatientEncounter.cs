@@ -73,6 +73,20 @@ namespace Clinic.Model
 
         }
 
+        public static async Task<PatientEncounter> getPatientEncounter(Appointment app)
+        {
+            PatientEncounter pee = null;
+            try
+            {
+                 pee = (await patientEncounter.Where(pe => pe.AppointmentId.Equals(app.Id)).ToListAsync()).First();
+            }
+            catch (MobileServiceInvalidOperationException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return pee;
+        }
+
 
         public static async Task<List<PatientEncounter>> ReadPatientEncountersList()
         {

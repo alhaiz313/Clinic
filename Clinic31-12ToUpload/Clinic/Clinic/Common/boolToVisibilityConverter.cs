@@ -37,4 +37,6 @@ namespace Clinic
             return visibility == Visibility.Visible ? VisibleValue : !VisibleValue;
         }
     }
+
+   
 }

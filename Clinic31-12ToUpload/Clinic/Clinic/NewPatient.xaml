@@ -24,61 +24,63 @@
     <Viewbox >
         <Grid Background="{Binding DisplayRegistrationColor}" Style="{StaticResource LayoutRootStyle}" x:Name="myGrid"
               Width="1366"
-             Height="768" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Margin="0,2,0,616" Grid.RowSpan="2"
-         >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+             Height="768"
            
-            
-            <Image Source="Assets/Sport-Activities-Trekking-icon2.png" Margin="18,63,1159,30" Grid.Column="1" />
-
-            <TextBlock Foreground="Black"  x:Name="pageTitle" Text="Patients" Style="{StaticResource PageHeaderTextStyle}" Margin="112,0,165,42" Grid.Column="1"/>
-            <!--<Image x:Name="myImage" Source="Assets/Folders-OS-User-No-Frame-Metro-icon.png"   Grid.Column="1" Margin="944,24,264,0"/>-->
-            <Image x:Name="myImage"  Grid.Column="1" Margin="944,70,264,20"/>
-
-            <!--<TextBlock  x:Name="logIn"  Text="{Binding logIn2}" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,64,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>-->
-            <TextBlock  x:Name="logIn" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>
-
-            <!-- </StackPanel>-->
-        </Grid>
-
-        <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientTemplate}" Grid.Row="1" 
-           Visibility="{Binding ShowAddPatientTemplate, Converter={StaticResource BoolToVisibilityConverter}}">
-        </ContentPresenter>
-
-
-        <Grid Grid.Row="1" Visibility="{Binding NotDisplayPatientForm,Converter={StaticResource BoolToVisibilityConverter}}">
+              >
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>                     
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="350"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">-->
+            <Grid Margin="0,2,0,616" Grid.RowSpan="2"
+         >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+
+
+                <Image Source="Assets/Sport-Activities-Trekking-icon2.png" Margin="18,63,1159,30" Grid.Column="1" />
+
+                <TextBlock Foreground="Black"  x:Name="pageTitle" Text="Patients" Style="{StaticResource PageHeaderTextStyle}" Margin="112,0,165,42" Grid.Column="1"/>
+                <!--<Image x:Name="myImage" Source="Assets/Folders-OS-User-No-Frame-Metro-icon.png"   Grid.Column="1" Margin="944,24,264,0"/>-->
+                <Image x:Name="myImage"  Grid.Column="1" Margin="944,70,264,20"/>
+
+                <!--<TextBlock  x:Name="logIn"  Text="{Binding logIn2}" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,64,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>-->
+                <TextBlock  x:Name="logIn" Foreground="Black" Style="{StaticResource PageSubheaderTextStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="998,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="52" Width="242"/>
+
+                <!-- </StackPanel>-->
+            </Grid>
+
+            <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientTemplate}" Grid.Row="1" 
+           Visibility="{Binding ShowAddPatientTemplate, Converter={StaticResource BoolToVisibilityConverter}}">
+            </ContentPresenter>
+
+
+            <Grid Grid.Row="1" Visibility="{Binding NotDisplayPatientForm,Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">-->
                 <!--<TextBlock Text="Search" FontSize="20" Foreground="Black" FontWeight="SemiBold" Padding="0,0,10,0" />-->
                 <!--<TextBox TextChanged="filterTextBox_TextChanged" x:Name="filterTextBox" Grid.Row="0" Grid.Column="0" />-->
-            <xc:WatermarkTextBox
+                <xc:WatermarkTextBox
                 Grid.Row="0" Grid.Column="0"
                 TextChanged="filterTextBox_TextChanged"
                 x:Name="filterTextBox"
                 WatermarkText="Filter Patients List..."/>
-            <StackPanel x:Name="upperStackPanel" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom"
+                <StackPanel x:Name="upperStackPanel" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom"
                         Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
  >
-                 <!--<TextBlock  FontSize="20" Foreground="Gray"  Padding="30,0,0,0" x:Name="selectedTextBlock"  />-->
+                    <!--<TextBlock  FontSize="20" Foreground="Gray"  Padding="30,0,0,0" x:Name="selectedTextBlock"  />-->
                     <TextBlock  Text="{Binding FName}"  FontSize="20" Foreground="#2D2D2D"  FontWeight="Normal" Padding="10,0,4,0"/>
 
                     <TextBlock  Text="{Binding LName}"  FontSize="20" Foreground="#2D2D2D"  FontWeight="Normal"  Padding="0,0,10,0"/>
@@ -92,10 +94,10 @@
                     <TextBlock  Text="DOB"  FontSize="20" Foreground="#2D2D2D"  FontWeight="Normal" Padding="0,0,4,0"/>
                     <TextBlock  Text="{Binding Dob ,Converter={StaticResource DateConverter}}" FontSize="15" Foreground="#2D2D2D"  FontWeight="ExtraLight"  VerticalAlignment="Center" />
 
-            </StackPanel>
-            <!--<Button  Width="10" Height="10" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" />-->
-            <!--</StackPanel>-->
-            <GridView 
+                </StackPanel>
+                <!--<Button  Width="10" Height="10" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" />-->
+                <!--</StackPanel>-->
+                <GridView 
             x:Name="VerticalPatientsView"
             Grid.Column="0"
             Grid.Row="1"
@@ -107,21 +109,21 @@
              SelectionMode="Single"
             ItemClick="ItemView_ItemClick"
             >
-                	<GridView.Resources>
-                		<Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
-                			<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-                			<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-                			<Setter Property="Background" Value="Transparent"/>
-                			<Setter Property="TabNavigation" Value="Local"/>
-                			<Setter Property="IsHoldingEnabled" Value="True"/>
+                    <GridView.Resources>
+                        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+                            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="TabNavigation" Value="Local"/>
+                            <Setter Property="IsHoldingEnabled" Value="True"/>
                             <Setter Property="Padding" Value="0" />
                             <Setter Property="Margin" Value="0,0,0,0" />
                             <Setter Property="BorderThickness" Value="0"/>
                             <Setter Property="TabNavigation" Value="Local" />
                             <!--<Setter Property="Margin" Value="0,0,2,2"/>-->
-                			<Setter Property="Template">
-                				<Setter.Value>
-                					<ControlTemplate TargetType="GridViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GridViewItem">
                                         <GridViewItemPresenter CheckHintBrush="#5E46A2"
                                                                CheckBrush="#5E46A2"
                                                                ContentMargin="4" 
@@ -146,78 +148,78 @@
                                                                SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
                                                                SelectedBackground="#5E46A2"
                                                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                					</ControlTemplate>
-                				</Setter.Value>
-                			</Setter>
-                		</Style>
-                	</GridView.Resources>
-                	<GridView.ItemContainerStyle>
-                		<StaticResource ResourceKey="GridViewItemStyle1"/>
-                	</GridView.ItemContainerStyle>
-                  
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GridView.Resources>
+                    <GridView.ItemContainerStyle>
+                        <StaticResource ResourceKey="GridViewItemStyle1"/>
+                    </GridView.ItemContainerStyle>
 
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
 
-                <GridView.ItemTemplate>
-                    <DataTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
 
-                      <Grid Background="{Binding PatientID,Converter={StaticResource MyConverter}}"
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid Background="{Binding PatientID,Converter={StaticResource MyConverter}}"
                       
                       x:Name="Grid1"
                       HorizontalAlignment="Left" 
                       Width="311" 
                       Height="80" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                        
-                                <Image Grid.Column="0" Source="{Binding ImageUri}" Width="80" Height="80" />
-                            <!--<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding FName}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal"/>-->
-
-                            <Grid x:Name="Grid2" Grid.Column="1" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto"/>
-                                   
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding FName}"  Foreground="Black" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" Padding="0,0,2,0"/>
 
-                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding LName}"  Foreground="Black" FontSize="15" FontWeight="Normal" HorizontalAlignment="Right"/>
-                              
-                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Tel"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
+                                <Image Grid.Column="0" Source="{Binding ImageUri}" Width="80" Height="80" />
+                                <!--<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding FName}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal"/>-->
 
-                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Phone}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Email"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
-                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Email}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Grid x:Name="Grid2" Grid.Column="1" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto"/>
 
-                                <TextBlock Grid.Column="2" Grid.Row="1" Text="DOB"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
-                                <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding Dob ,Converter={StaticResource DateConverter}}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5,0,0,0"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding FName}"  Foreground="Black" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" Padding="0,0,2,0"/>
 
-                                <Image Grid.Column="2" Grid.Row="0" Source="{Binding Gender , Converter={StaticResource GenderConverter}}" Stretch="UniformToFill" Height="20" Width="20" />
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding LName}"  Foreground="Black" FontSize="15" FontWeight="Normal" HorizontalAlignment="Right"/>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Tel"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
+
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Phone}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Email"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Email}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                                    <TextBlock Grid.Column="2" Grid.Row="1" Text="DOB"  Foreground="Black" FontSize="15" FontWeight="Normal"/>
+                                    <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding Dob ,Converter={StaticResource DateConverter}}"  Foreground="Black" FontSize="10" FontWeight="ExtraLight" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5,0,0,0"/>
+
+                                    <Image Grid.Column="2" Grid.Row="0" Source="{Binding Gender , Converter={StaticResource GenderConverter}}" Stretch="UniformToFill" Height="20" Width="20" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-
-                    
-
-                    </DataTemplate>
-                </GridView.ItemTemplate>
 
 
-            </GridView>
-            
-            <GridView
+
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+
+
+                </GridView>
+
+                <GridView
                 Grid.Column="1" 
                 Grid.Row="1"
                 IsItemClickEnabled="False"
@@ -227,16 +229,16 @@
                 ScrollViewer.HorizontalScrollMode="Enabled"
               >
 
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
 
-                <!--<TextBlock Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Test" FontWeight="Light"/>-->
+                    <!--<TextBlock Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Test" FontWeight="Light"/>-->
 
-                <charting:Chart
+                    <charting:Chart
                    Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
                         x:Name="LineChart"
                         Title="Cholestrol Chart"
@@ -246,13 +248,13 @@
                         Width="400" 
                         Height="560"
                         Background="#BFB5DF">
-                    <charting:LineSeries
+                        <charting:LineSeries
                             Title="Level"
                             IndependentValueBinding="{Binding Name}"
                             DependentValueBinding="{Binding Value}"
                             IsSelectionEnabled="True" >
-                        
-                        
+
+
                             <charting:LineSeries.DataPointStyle>
                                 <Style
                 TargetType="charting:LineDataPoint">
@@ -260,18 +262,18 @@
                     Property="Background"
                     Value="#4A2F96"
                                  />
-                          
-                                 
+
+
                                 </Style>
                             </charting:LineSeries.DataPointStyle>
-                        
-                        
-                        
+
+
+
                         </charting:LineSeries>
 
                     </charting:Chart>
 
-                <charting:Chart
+                    <charting:Chart
                  Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
                         x:Name="LineChart2"
                         Title="Pulse Chart"
@@ -305,7 +307,7 @@
                         </charting:LineSeries>
                     </charting:Chart>
 
-                <charting:Chart
+                    <charting:Chart
                 Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
                  x:Name="LineChart3"
                   Title="Temperature Chart"
@@ -338,8 +340,8 @@
 
                         </charting:LineSeries>
                     </charting:Chart>
-                
-                <GridView
+
+                    <GridView
                    Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
                     Foreground="Black"
                   
@@ -352,27 +354,27 @@
                     Background="#BFB5DF"
                     Height="560"
                     >
-                  
-                           
-                            <GridView.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient Documents" FontWeight="Light"/>
-                                </DataTemplate>
-                            </GridView.HeaderTemplate>
-                       
-
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-
-                    <!--<TextBlock  FontSize="20" Foreground="Gray"  Padding="30,0,0,0" Text="Documents"   />-->
 
 
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
+                        <GridView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient Documents" FontWeight="Light"/>
+                            </DataTemplate>
+                        </GridView.HeaderTemplate>
+
+
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <!--<VariableSizedWrapGrid Orientation="Vertical" />-->
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+
+                        <!--<TextBlock  FontSize="20" Foreground="Gray"  Padding="30,0,0,0" Text="Documents"   />-->
+
+
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
                                 <Border  BorderBrush="#4A2F96" BorderThickness="3" >
                                     <!--"#B6B6B4"-->
                                     <Grid 
@@ -397,17 +399,17 @@
                                 </Border>
 
                             </DataTemplate>
-                    </GridView.ItemTemplate>
+                        </GridView.ItemTemplate>
 
 
-                </GridView>
+                    </GridView>
 
                     <Grid x:Name="Output" Width="700" Height="560" Background="#BFB5DF" Margin="0,0,0,0"
                 Visibility="{Binding ShowChart,Converter={StaticResource BoolToVisibilityConverter}}"
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 >
-                    <!--<Grid.RowDefinitions>
+                        <!--<Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -416,44 +418,44 @@
 
 
                         <Grid Width="700"  Grid.Row="1"  >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
 
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="Auto"/>
 
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient History Calendar" FontWeight="Light" Foreground="Black" />
-                        <!--<StackPanel FlowDirection="LeftToRight">-->
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Margin="0,22,0,22" HorizontalAlignment="Center" FontSize="16" Text="Patient History Calendar" FontWeight="Light" Foreground="Black" />
+                            <!--<StackPanel FlowDirection="LeftToRight">-->
                             <Grid Grid.Row="1" Background="#4A2F96">
-                            <Button Grid.Row="1" Content="&lt;" x:Name="previousMonthButton" Click="previousMonthButton_Click" Foreground="White"  />
-                            <TextBlock Grid.Row="1" x:Name="MonthNameTextBlock" Text="{Binding SelectedMonth, Mode=TwoWay}"  FontSize="20" Width="100" Margin="67,7,483,7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="1" x:Name="YearNameTextBlock" Text="{Binding SelectedYear, Mode=TwoWay}"  FontSize="20" Width="100" Margin="200,7,0,7" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button Grid.Row="1" Content=">" Margin="652,0,0,0" x:Name="nextMonthButton" Click="nextMonthButton_Click" Foreground="White"/>
+                                <Button Grid.Row="1" Content="&lt;" x:Name="previousMonthButton" Click="previousMonthButton_Click" Foreground="White"  />
+                                <TextBlock Grid.Row="1" x:Name="MonthNameTextBlock" Text="{Binding SelectedMonth, Mode=TwoWay}"  FontSize="20" Width="100" Margin="67,7,483,7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="1" x:Name="YearNameTextBlock" Text="{Binding SelectedYear, Mode=TwoWay}"  FontSize="20" Width="100" Margin="200,7,0,7" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button Grid.Row="1" Content=">" Margin="652,0,0,0" x:Name="nextMonthButton" Click="nextMonthButton_Click" Foreground="White"/>
                             </Grid>
 
                             <!--</StackPanel>-->
                             <Grid Grid.Row="2" Width="700" Background="#4A2F96">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
 
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Sunday"  FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="Monday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="Tuesday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Text="Wednesday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="4" Text="Thursday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="5" Text="Friday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="6" Text="Saturday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <GridView Grid.Row="3"
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Sunday"  FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Monday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Tuesday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="3" Text="Wednesday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="4" Text="Thursday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="5" Text="Friday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="6" Text="Saturday" FontSize="15" Foreground="White" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <GridView Grid.Row="3"
                          x:Name="MonthGridView"
                            IsItemClickEnabled="True" Margin="0,0,0,-306"
                                   
@@ -461,18 +463,18 @@
                           Background="#4A2F96"
                          
                              >
-                            <GridView.Resources>
-                                <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
-                                    <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-                                    <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="TabNavigation" Value="Local"/>
-                                    <Setter Property="IsHoldingEnabled" Value="True"/>
-                                    <Setter Property="Margin" Value="0,0,2,2"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="GridViewItem">
-                                                <GridViewItemPresenter 
+                                <GridView.Resources>
+                                    <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+                                        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                                        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="TabNavigation" Value="Local"/>
+                                        <Setter Property="IsHoldingEnabled" Value="True"/>
+                                        <Setter Property="Margin" Value="0,0,2,2"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="GridViewItem">
+                                                    <GridViewItemPresenter 
                                             CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
                                             CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
                                             ContentMargin="0" 
@@ -496,25 +498,25 @@
                                             SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
                                             SelectedBackground="{ThemeResource ListViewItemSelectedBackgroundThemeBrush}" 
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </GridView.Resources>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GridView.Resources>
 
-                            <GridView.ItemContainerStyle>
-                                <StaticResource ResourceKey="GridViewItemStyle1"/>
-                            </GridView.ItemContainerStyle>
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
+                                <GridView.ItemContainerStyle>
+                                    <StaticResource ResourceKey="GridViewItemStyle1"/>
+                                </GridView.ItemContainerStyle>
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
 
-                                   
-                                    <WrapGrid Orientation="Horizontal"/>
 
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
+                                        <WrapGrid Orientation="Horizontal"/>
+
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
 
                                         <Grid  Height="60" Width="98">
                                             <Grid.ColumnDefinitions>
@@ -522,9 +524,9 @@
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                  
+
                                             <Grid  Grid.Column="0"  Background="{Binding Color}" Width="{Binding Width1}">
-                                                 <TextBlock Text="{Binding Value}" VerticalAlignment="Top" Foreground="#2D2D2D"/>
+                                                <TextBlock Text="{Binding Value}" VerticalAlignment="Top" Foreground="#2D2D2D"/>
                                                 <TextBlock Text="{Binding pHistory,Converter={StaticResource HistoryConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#2D2D2D" FontSize="10"/>
                                             </Grid>
 
@@ -542,45 +544,45 @@
 
                                         </Grid>
 
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
 
-                        </GridView>
-                        <Popup x:Name="LightDismissAnimatedPopup" IsLightDismissEnabled="True"  >
-                            <Popup.ChildTransitions>
-                                <TransitionCollection>
-                                    <PopupThemeTransition />
-                                </TransitionCollection>
-                            </Popup.ChildTransitions>
-                            <Border BorderBrush="Gray" BorderThickness="2" Background="White" Width="200" Height="300">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock x:Name="LightDismissAnimatedPopupTextBlock" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
-                                    <TextBlock x:Name="LightDismissAnimatedPopupTextBlock3" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
-                                    <TextBlock x:Name="LightDismissAnimatedPopupTextBlock4" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
-                                    <TextBlock x:Name="LightDismissAnimatedPopupTextBlock5" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
-                                     <TextBlock x:Name="LightDismissAnimatedPopupTextBlock6" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                            </GridView>
+                            <Popup x:Name="LightDismissAnimatedPopup" IsLightDismissEnabled="True"  >
+                                <Popup.ChildTransitions>
+                                    <TransitionCollection>
+                                        <PopupThemeTransition />
+                                    </TransitionCollection>
+                                </Popup.ChildTransitions>
+                                <Border BorderBrush="Gray" BorderThickness="2" Background="White" Width="200" Height="300">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock x:Name="LightDismissAnimatedPopupTextBlock" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                                        <TextBlock x:Name="LightDismissAnimatedPopupTextBlock3" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                                        <TextBlock x:Name="LightDismissAnimatedPopupTextBlock4" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                                        <TextBlock x:Name="LightDismissAnimatedPopupTextBlock5" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
+                                        <TextBlock x:Name="LightDismissAnimatedPopupTextBlock6" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
                                         <TextBlock x:Name="LightDismissAnimatedPopupTextBlock7" FontSize="12" Foreground="Gray" HorizontalAlignment="Center" />
 
                                         <TextBlock x:Name="LightDismissAnimatedPopupTextBlock2" FontSize="10" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-                                    
-                                    <!--<Button Content="Close" Click="CloseAnimatedPopupClicked" Background="Gray" HorizontalAlignment="Center" />-->
-                                </StackPanel>
-                            </Border>
-                        </Popup>
+
+                                        <!--<Button Content="Close" Click="CloseAnimatedPopupClicked" Background="Gray" HorizontalAlignment="Center" />-->
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </GridView>
-        </Grid>
+                </GridView>
+            </Grid>
 
 
-        <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientInfoView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientInfoTemplate}" Grid.Row="1" 
+            <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientInfoView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientInfoTemplate}" Grid.Row="1" 
            Visibility="{Binding ShowAddPatientInfoTemplate, Converter={StaticResource BoolToVisibilityConverter}}">
-        </ContentPresenter>
+            </ContentPresenter>
 
 
-        <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientDocumentView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientDocumentTemplate}" Grid.Row="1" 
+            <ContentPresenter  DataContext="{Binding MainViewModel}" x:Name="AddPatientDocumentView" Margin="0,0,0,0" ContentTemplate="{StaticResource AddPatientDocumentTemplate}" Grid.Row="1" 
            Visibility="{Binding ShowAddPatientDocumentTemplate, Converter={StaticResource BoolToVisibilityConverter}}">
-        </ContentPresenter>
+            </ContentPresenter>
 
             <Grid Background="Transparent"  Grid.Row="1"
                   Visibility="{Binding ShowAddEncounter}" x:Name="PatientEncounterGrid" >
@@ -589,10 +591,45 @@
                 </ContentPresenter>
             </Grid>
 
+            <Grid Background="Transparent"  Grid.Row="1"
+                  Visibility="{Binding ShowProduceReport}" x:Name="ProduceReportGrid" >
 
+                <ContentPresenter   x:Name="ProduceReportView" Margin="0,0,0,0" ContentTemplate="{StaticResource ProduceReport}" Grid.Row="1"  >
+                </ContentPresenter>
+            </Grid>
+
+
+          
+            <Grid Background="Transparent"  x:Name="ReportGrid" 
+                  Visibility="{Binding ShowReport}"    Width="1366" Grid.RowSpan="2" Height="780" >
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Frame x:Name="ScenarioInput" Margin="0,5,0,0" MaxWidth="1050" IsTabStop="False" />
+
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Grid.Row="1"
+                  Visibility="{Binding ShowReport}"  x:Name="ReportScrollViewer"   >-->
+
+                    <Rectangle Stroke="Black" StrokeDashArray="3 3"  Grid.Row="1" Width="1366" 
+             Height="700"  />
+
+                <!--</ScrollViewer>-->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Grid.Row="1"
+                  Visibility="{Binding ShowReport}"  x:Name="ReportScrollViewer"   >
+
+                    <Frame x:Name="ScenarioOutput"  Margin="10 10 10 10" Grid.Row="1"  MaxWidth="1050"  Background="White" Padding="30,70,20,50"/>
+                    <!--ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled"-->
+   
+                </ScrollViewer>
+
+            </Grid>
+            
         </Grid>
 
-      
+
     </Viewbox >
 
     <Page.BottomAppBar>
@@ -608,19 +645,20 @@
                 <StackPanel x:Name="RightPanel" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
 
                     <AppBarButton x:Uid="Bookmarks" Icon="Bookmarks" Label="Add Patient History" Click="AppBarButton_Click_1"/>
-                    <AppBarButton x:Uid="Document" Icon="Document" Label="Add Patient Document" Click="AppBarButton_Click_3"/>
+                    <AppBarButton x:Uid="Document" Icon="Attach" Label="Add Patient Document" Click="AppBarButton_Click_3"/>
                     <!--<AppBarButton x:Uid="Encounter" Icon="ContactInfo" Label="Add Patient Encounter" />-->
+                    <AppBarButton x:Uid="Report" Icon= "Document" Label="Produce Report" Click="AppBarButton_Click_5"/>
 
                     <AppBarSeparator/>
-                    
+
                     <AppBarButton x:Uid="Add" Icon="Add" Label="Add Patient" Click="AppBarButton_Click" />
-                    <!--<AppBarButton x:Uid="Remove" Icon="Remove" Label="Remove Patient"/>-->
+                    <AppBarButton x:Uid="Remove" Icon="Remove" Label="Remove Patient" Click="AppBarButton_Click_4"/>
                     <AppBarButton x:Uid="Refresh" Icon="Refresh" Label="Refresh Patient List" Click="AppBarButton_Click_2"/>
 
                 </StackPanel>
             </Grid>
         </AppBar>
     </Page.BottomAppBar>
-      
+
 
 </common:LayoutAwarePage>

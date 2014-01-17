@@ -127,7 +127,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                     <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#4A2F96" FontSize="20" FontWeight="SemiBold">Patients</TextBlock>
-                <Image Grid.Column="1" Source="Assets/Sport-Activities-Trekking-icon.png" Margin="39,29,46,29"/>
+                <Image Grid.Column="1" Source="Assets/Sport-Activities-Trekking-icon.png" Margin="54,38,52,38"/>
                
                 
             </Grid>
@@ -240,7 +240,7 @@
             </Grid>
             
             
-                <!--<Grid Background="Gray"
+                <Grid Background="Gray"
                   x:Name="Grid2"
                   HorizontalAlignment="Left" 
                   Width="311" 
@@ -254,7 +254,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="20" FontWeight="Normal">Settings</TextBlock>
                     <Image Grid.Column="1" Source="Assets/settings-icon.png" Margin="52,38,46,41"/>
-                </Grid>-->
+                </Grid>
 
 
                 <Grid Background="Gray"

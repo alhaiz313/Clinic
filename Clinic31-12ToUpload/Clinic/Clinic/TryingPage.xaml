@@ -8,9 +8,22 @@
     xmlns:dt="using:WinRTDatePicker"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent"  x:Name="ReportGrid"
+              
+              >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--<Canvas x:Name="printingRoot" Opacity="0"/>-->
+        <!--<Button Content="Print.." Click="Button_Click"></Button>-->
 
+        <Frame x:Name="ScenarioInput" Margin="0,5,0,0" MaxWidth="1050" IsTabStop="False" />
 
-        
+        <Rectangle Stroke="Black" StrokeDashArray="3 3"  Grid.Row="1"/>
+        <Frame x:Name="ScenarioOutput"  Margin="10 10 10 10" Grid.Row="1"  MaxWidth="1050" MaxHeight="1050" IsTabStop="False">
+
+        </Frame>
+
     </Grid>
 </Page>

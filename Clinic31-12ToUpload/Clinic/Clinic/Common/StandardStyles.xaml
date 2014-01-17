@@ -1082,6 +1082,7 @@ information to connect to your cloud database.
     <common:AppIdToFromTime x:Key="AppIdToFromTime"/>
     <common:AppIdToToTime x:Key="AppIdToToTime" />
     <common:AppIdToComplaint x:Key="AppIdToComplaint"/>
+    <common:NotCheckedConverter x:Key="NotCheckedConverter"/>
     
 
     <DataTemplate x:Key="AddPatientTemplate" >
@@ -1551,6 +1552,90 @@ information to connect to your cloud database.
         </Grid>
 
     </DataTemplate>
+
+
+    <DataTemplate x:Key="ProduceReport" >
+
+        <Grid x:Name="Input" Grid.Row="1" Margin="420,100,360,200"  Background="Gray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!--<ColumnDefinition Width="Auto"/>-->
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Padding="30,0,0,30"  Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Left">
+                Produce Printable Report
+            </TextBlock>
+            <StackPanel Grid.Column="0" Grid.Row="1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="10,0,10,0" Grid.Column="0" Style="{StaticResource BasicTextStyle}" FontWeight="SemiBold" Margin="0,10,0,10">Patient Name</TextBlock>
+                    <TextBox Grid.Column="1" x:Name="LastNameTextBox" Width="320" HorizontalAlignment="Left" Margin="0,4,0,6" Text="{Binding SelectedPatient, Converter={StaticResource PatientNameConverter}}" IsReadOnly="True"></TextBox>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<TextBlock Padding="10,0,10,0" Grid.Column="0" Style="{StaticResource BasicTextStyle}" FontWeight="SemiBold" Margin="0,10,0,10">Patient Name</TextBlock>-->
+                    <CheckBox Grid.Column="1" x:Name="AllDates" Width="320" HorizontalAlignment="Left" Margin="0,4,0,6" IsChecked="{Binding IsChecked, Mode=TwoWay}"  Content="All Data"></CheckBox>
+                </Grid>
+
+                <Grid Visibility="{Binding IsChecked,Converter={StaticResource NotCheckedConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="10,0,10,0" Grid.Column="0" Style="{StaticResource BasicTextStyle}" FontWeight="SemiBold" Margin="0,10,0,10">From</TextBlock>
+                    <!--<TextBox Grid.Column="1" x:Name="DOBTextBox" Width="320" HorizontalAlignment="Left" Margin="0,4,0,6" Text="{Binding Pa.Dob, Mode=TwoWay}"></TextBox>-->
+                    <DatePicker Grid.Column="1" x:Name="datePicker"   Width="320" HorizontalAlignment="Left" Margin="0,4,0,6"  Date="{Binding FromDate,Converter={StaticResource DateTimeToDateTimeOffsetConverter} , Mode=TwoWay}" />
+                    <!--<DatePicker Grid.Column="1" x:Name="datePicker"   Width="320" HorizontalAlignment="Left" Margin="0,4,0,6"  Date ="{Binding Pa.Dob, Mode=TwoWay}" />-->
+
+                </Grid>
+
+                <Grid Visibility="{Binding IsChecked,Converter={StaticResource NotCheckedConverter}}">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="10,0,10,0" Grid.Column="0" Style="{StaticResource BasicTextStyle}" FontWeight="SemiBold" Margin="0,10,0,10">To</TextBlock>
+                    <!--<TextBox Grid.Column="1" x:Name="DOBTextBox" Width="320" HorizontalAlignment="Left" Margin="0,4,0,6" Text="{Binding Pa.Dob, Mode=TwoWay}"></TextBox>-->
+                    <DatePicker Grid.Column="1" x:Name="datePicker2"   Width="320" HorizontalAlignment="Left" Margin="0,4,0,6"  Date="{Binding ToDate,Converter={StaticResource DateTimeToDateTimeOffsetConverter} , Mode=TwoWay}" />
+                    <!--<DatePicker Grid.Column="1" x:Name="datePicker"   Width="320" HorizontalAlignment="Left" Margin="0,4,0,6"  Date ="{Binding Pa.Dob, Mode=TwoWay}" />-->
+
+                </Grid>
+
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" x:Name="AddPatientButton" Content="Produce Report" Command="{Binding Produce_Report}" Margin="0,0,10,0" />
+                    <Button Grid.Column="1" x:Name="CancelAddPatientButton" Content="Cancel" Command="{Binding Cancel_Produce_Report}" Margin="150,0,10,0" />
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+
+
+    </DataTemplate>
+
+
 
     <DataTemplate x:Key="AddEncounter" >
 

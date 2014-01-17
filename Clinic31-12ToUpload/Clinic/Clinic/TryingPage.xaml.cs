@@ -26,5 +26,11 @@ namespace Clinic
         {
             this.InitializeComponent();
         }
+
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    await Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync();
+
+        //}
     }
 }

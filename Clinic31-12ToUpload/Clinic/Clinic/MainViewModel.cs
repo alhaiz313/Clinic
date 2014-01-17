@@ -251,7 +251,7 @@ namespace Clinic
                     {
                         await User.InsertAsync(new User
                         {
-                           // isAdmin  = false,
+                            isAdmin  = false,
                             UserId = id,
                             LiveSDKID = LiveSDKId,
                             //UserId = App.MobileService.CurrentUser.UserId,
