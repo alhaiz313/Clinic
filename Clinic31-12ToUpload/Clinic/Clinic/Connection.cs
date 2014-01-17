@@ -12,16 +12,7 @@ namespace Clinic
     class Connection
     {
 
-      //  public static MobileServiceClient mobileService=null;
-
-        //public static MobileServiceClient mobileService = new MobileServiceClient(
-        //  "https://zainabalhaidary5.azure-mobile.net/",
-        //  "CiywNDvdJVFfrdkOZUXcpAItqDEyAk32");
-
-        //https://zainabalhaidary7.azure-mobile.net/
-        //https://zainabalhaidary7.azure-mobile.net/
-        // TXiJTMnoUsCQARnwwJXDHOOqdvvULQ59
-
+     
         public static MobileServiceClient mobileService; //= new MobileServiceClient(applicationURL,applicationKey);
 
         public Connection(string a, string b)
