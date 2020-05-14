@@ -13,4 +13,5 @@ App Feature:
  Scheduling and Appointment Booking 
  Automatic Contact List Refreshing 
  Integration with Outlook Calendar 
- Data Exportation  Microsoft Azure Storage
+ Data Exportation 
+ Microsoft Azure Storage
